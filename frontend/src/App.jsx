@@ -12,7 +12,7 @@ export default function App() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#0f1729',
+      background: '#0a0e1a',
       display: 'flex',
       flexDirection: 'column'
     }}>
@@ -21,9 +21,9 @@ export default function App() {
 
       {/* Main Content */}
       <main style={{ flex: 1 }}>
-        {/* Hero Dashboard Section */}
+        {/* Hero Dashboard Section - Dark Navy with Blue Gradient */}
         <section id="dashboard" style={{
-          background: 'linear-gradient(135deg, #0f1729 0%, #1a2332 100%)',
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
           padding: '80px 32px',
           position: 'relative',
           overflow: 'hidden'
@@ -35,9 +35,9 @@ export default function App() {
             left: 0,
             right: 0,
             bottom: 0,
-            opacity: 0.03,
-            backgroundImage: 'radial-gradient(circle at 20% 50%, #3b82f6 1px, transparent 1px), radial-gradient(circle at 80% 80%, #8b5cf6 1px, transparent 1px)',
-            backgroundSize: '50px 50px'
+            opacity: 0.05,
+            backgroundImage: 'radial-gradient(circle at 20% 50%, #3b82f6 2px, transparent 2px), radial-gradient(circle at 80% 80%, #8b5cf6 2px, transparent 2px)',
+            backgroundSize: '60px 60px'
           }} />
 
           {/* Decorative Gradient Orbs */}
@@ -45,21 +45,11 @@ export default function App() {
             position: 'absolute',
             top: '-20%',
             right: '-10%',
-            width: '600px',
-            height: '600px',
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
+            width: '700px',
+            height: '700px',
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
             borderRadius: '50%',
-            filter: 'blur(80px)'
-          }} />
-          <div style={{
-            position: 'absolute',
-            bottom: '-20%',
-            left: '-10%',
-            width: '500px',
-            height: '500px',
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(80px)'
+            filter: 'blur(100px)'
           }} />
 
           <div style={{
@@ -77,7 +67,7 @@ export default function App() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '12px',
-                background: 'rgba(16, 185, 129, 0.1)',
+                background: 'rgba(16, 185, 129, 0.15)',
                 backdropFilter: 'blur(10px)',
                 padding: '10px 24px',
                 borderRadius: '30px',
@@ -89,14 +79,14 @@ export default function App() {
                   height: '8px',
                   background: '#10b981',
                   borderRadius: '50%',
-                  boxShadow: '0 0 10px #10b981',
+                  boxShadow: '0 0 12px #10b981',
                   animation: 'pulse 2s infinite'
                 }} />
                 <span style={{
-                  fontSize: '13px',
+                  fontSize: '12px',
                   color: '#10b981',
-                  fontWeight: '600',
-                  letterSpacing: '1px',
+                  fontWeight: '700',
+                  letterSpacing: '1.5px',
                   textTransform: 'uppercase'
                 }}>
                   Real-time Data Analytics
@@ -167,25 +157,24 @@ export default function App() {
                 }
               ].map((stat, idx) => (
                 <div key={idx} style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: 'rgba(255, 255, 255, 0.04)',
                   backdropFilter: 'blur(20px)',
                   padding: '28px',
                   borderRadius: '16px',
                   borderTop: `3px solid ${stat.borderColor}`,
-                  border: '1px solid rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.08)',
                   transition: 'all 0.3s',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  overflow: 'hidden'
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)'
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'
-                  e.currentTarget.style.borderColor = stat.borderColor
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'
+                  e.currentTarget.style.boxShadow = `0 12px 30px ${stat.borderColor}40`
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)'
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)'
+                  e.currentTarget.style.boxShadow = 'none'
                 }}>
                   <div style={{ 
                     fontSize: '36px', 
@@ -195,7 +184,7 @@ export default function App() {
                     {stat.icon}
                   </div>
                   <div style={{ 
-                    fontSize: '12px', 
+                    fontSize: '11px', 
                     color: 'rgba(255,255,255,0.5)', 
                     marginBottom: '8px',
                     fontWeight: '600',
@@ -218,15 +207,31 @@ export default function App() {
           </div>
         </section>
 
-        {/* Analytics Section */}
+        {/* Analytics Section - Darker with Purple Accent */}
         <section id="analytics" style={{
-          background: '#1a2332',
+          background: 'linear-gradient(135deg, #1a1f2e 0%, #252b3a 100%)',
           padding: '80px 32px',
-          position: 'relative'
+          position: 'relative',
+          borderTop: '1px solid rgba(139, 92, 246, 0.2)'
         }}>
+          {/* Subtle background gradient */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '800px',
+            height: '400px',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%)',
+            filter: 'blur(80px)',
+            pointerEvents: 'none'
+          }} />
+
           <div style={{
             maxWidth: '1400px',
-            margin: '0 auto'
+            margin: '0 auto',
+            position: 'relative',
+            zIndex: 1
           }}>
             {/* Section Header */}
             <div style={{
@@ -235,17 +240,17 @@ export default function App() {
             }}>
               <div style={{
                 display: 'inline-block',
-                background: 'rgba(139, 92, 246, 0.1)',
+                background: 'rgba(139, 92, 246, 0.15)',
                 padding: '8px 20px',
                 borderRadius: '20px',
                 marginBottom: '16px',
                 border: '1px solid rgba(139, 92, 246, 0.3)'
               }}>
                 <span style={{
-                  fontSize: '13px',
+                  fontSize: '12px',
                   fontWeight: '700',
-                  color: '#8b5cf6',
-                  letterSpacing: '1px',
+                  color: '#a78bfa',
+                  letterSpacing: '1.5px',
                   textTransform: 'uppercase'
                 }}>
                   📊 Analytics Overview
@@ -397,10 +402,11 @@ export default function App() {
           </div>
         </section>
 
-        {/* Reports Section */}
+        {/* Reports Section - Darkest with Blue Accent */}
         <section id="reports" style={{
-          background: '#0f1729',
-          padding: '80px 32px'
+          background: 'linear-gradient(135deg, #0a0e1a 0%, #151922 100%)',
+          padding: '80px 32px',
+          borderTop: '1px solid rgba(59, 130, 246, 0.2)'
         }}>
           <div style={{
             maxWidth: '1400px',
@@ -418,17 +424,17 @@ export default function App() {
               <div style={{ flex: 1, minWidth: '300px' }}>
                 <div style={{
                   display: 'inline-block',
-                  background: 'rgba(59, 130, 246, 0.1)',
+                  background: 'rgba(59, 130, 246, 0.15)',
                   padding: '8px 20px',
                   borderRadius: '20px',
                   marginBottom: '16px',
                   border: '1px solid rgba(59, 130, 246, 0.3)'
                 }}>
                   <span style={{
-                    fontSize: '13px',
+                    fontSize: '12px',
                     fontWeight: '700',
-                    color: '#3b82f6',
-                    letterSpacing: '1px',
+                    color: '#60a5fa',
+                    letterSpacing: '1.5px',
                     textTransform: 'uppercase'
                   }}>
                     📄 Detailed Reports
@@ -457,7 +463,7 @@ export default function App() {
               
               {/* Quick Stats Badge */}
               <div style={{
-                background: 'rgba(255, 255, 255, 0.03)',
+                background: 'rgba(255, 255, 255, 0.05)',
                 padding: '24px 28px',
                 borderRadius: '16px',
                 border: '1px solid rgba(255,255,255,0.1)',
@@ -494,7 +500,7 @@ export default function App() {
 
             {/* Search Bar */}
             <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
+              background: 'rgba(255, 255, 255, 0.04)',
               borderRadius: '16px',
               padding: '32px',
               border: '1px solid rgba(255,255,255,0.1)',
@@ -518,7 +524,7 @@ export default function App() {
               {/* Table Area */}
               <section>
                 <div style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: 'rgba(255, 255, 255, 0.04)',
                   borderRadius: '16px',
                   padding: '32px',
                   border: '1px solid rgba(255,255,255,0.1)',
