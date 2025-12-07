@@ -6,7 +6,7 @@ const FilterSection = ({title, icon, children}) => (
     <div style={{
       fontSize: '13px',
       fontWeight: '600',
-      color: '#374151',
+      color: '#0f172a',
       marginBottom: '8px',
       display: 'flex',
       alignItems: 'center',
@@ -23,11 +23,13 @@ const inputStyle = {
   width: '100%',
   padding: '10px 12px',
   fontSize: '14px',
-  border: '1px solid #e5e7eb',
+  border: '1px solid #e2e8f0',
   borderRadius: '8px',
   outline: 'none',
   transition: 'all 0.2s',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  background: 'white',
+  color: '#0f172a'
 }
 
 export default function Filters(){
@@ -35,16 +37,20 @@ export default function Filters(){
   
   return (
     <aside style={{
-      background: '#f9fafb',
-      padding: '20px',
-      borderRadius: '12px',
-      border: '1px solid #e5e7eb'
+      background: 'white',
+      padding: '24px',
+      borderRadius: '16px',
+      border: '1px solid #e2e8f0',
+      boxShadow: '0 1px 3px rgba(15, 23, 42, 0.08)'
     }}>
       <h3 style={{
         margin: '0 0 20px 0',
-        fontSize: '16px',
-        fontWeight: '600',
-        color: '#111827'
+        fontSize: '18px',
+        fontWeight: '700',
+        color: '#0f172a',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px'
       }}>
         🎯 Filters
       </h3>
@@ -55,6 +61,8 @@ export default function Filters(){
           onChange={e=>setParam('regions', e.target.value)} 
           placeholder="e.g., North, South, East"
           style={inputStyle}
+          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
         />
       </FilterSection>
 
@@ -64,6 +72,8 @@ export default function Filters(){
           onChange={e=>setParam('gender', e.target.value)} 
           placeholder="e.g., Male, Female"
           style={inputStyle}
+          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
         />
       </FilterSection>
 
@@ -76,6 +86,8 @@ export default function Filters(){
             placeholder="Min"
             min="0"
             style={inputStyle}
+            onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+            onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
           />
           <input 
             type="number" 
@@ -84,6 +96,8 @@ export default function Filters(){
             placeholder="Max"
             min="0"
             style={inputStyle}
+            onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+            onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
           />
         </div>
       </FilterSection>
@@ -94,6 +108,8 @@ export default function Filters(){
           onChange={e=>setParam('categories', e.target.value)} 
           placeholder="e.g., Electronics, Fashion"
           style={inputStyle}
+          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
         />
       </FilterSection>
 
@@ -103,6 +119,8 @@ export default function Filters(){
           onChange={e=>setParam('tags', e.target.value)} 
           placeholder="e.g., New, Sale"
           style={inputStyle}
+          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
         />
       </FilterSection>
 
@@ -112,6 +130,8 @@ export default function Filters(){
           onChange={e=>setParam('paymentMethods', e.target.value)} 
           placeholder="e.g., Card, Cash"
           style={inputStyle}
+          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
         />
       </FilterSection>
 
@@ -121,12 +141,16 @@ export default function Filters(){
           value={params.startDate} 
           onChange={e=>setParam('startDate', e.target.value)}
           style={{...inputStyle, marginBottom: '8px'}}
+          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
         />
         <input 
           type="date"
           value={params.endDate} 
           onChange={e=>setParam('endDate', e.target.value)}
           style={inputStyle}
+          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
         />
       </FilterSection>
 
@@ -134,18 +158,25 @@ export default function Filters(){
         onClick={() => window.location.reload()}
         style={{
           width: '100%',
-          padding: '10px',
-          background: '#667eea',
+          padding: '12px',
+          background: '#3b82f6',
           color: 'white',
           border: 'none',
           borderRadius: '8px',
           fontSize: '14px',
           fontWeight: '600',
           cursor: 'pointer',
-          transition: 'all 0.2s'
+          transition: 'all 0.2s',
+          boxShadow: '0 1px 2px rgba(59, 130, 246, 0.3)'
         }}
-        onMouseOver={e => e.target.style.background = '#5568d3'}
-        onMouseOut={e => e.target.style.background = '#667eea'}
+        onMouseOver={e => {
+          e.target.style.background = '#2563eb'
+          e.target.style.boxShadow = '0 4px 8px rgba(59, 130, 246, 0.4)'
+        }}
+        onMouseOut={e => {
+          e.target.style.background = '#3b82f6'
+          e.target.style.boxShadow = '0 1px 2px rgba(59, 130, 246, 0.3)'
+        }}
       >
         🔄 Reset Filters
       </button>

@@ -12,7 +12,7 @@ export default function App() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#f8fafc',
+      background: '#f1f5f9',
       display: 'flex',
       flexDirection: 'column'
     }}>
@@ -23,7 +23,7 @@ export default function App() {
       <main style={{ flex: 1 }}>
         {/* Hero Dashboard Section */}
         <section id="dashboard" style={{
-          background: 'linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)',
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
           padding: '80px 32px',
           position: 'relative',
           overflow: 'hidden'
@@ -35,7 +35,7 @@ export default function App() {
             left: 0,
             right: 0,
             bottom: 0,
-            opacity: 0.05,
+            opacity: 0.03,
             backgroundImage: 'radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 80%, white 1px, transparent 1px)',
             backgroundSize: '50px 50px'
           }} />
@@ -47,7 +47,7 @@ export default function App() {
             right: '-10%',
             width: '600px',
             height: '600px',
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
             borderRadius: '50%',
             filter: 'blur(80px)'
           }} />
@@ -57,7 +57,7 @@ export default function App() {
             left: '-10%',
             width: '500px',
             height: '500px',
-            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
             borderRadius: '50%',
             filter: 'blur(80px)'
           }} />
@@ -77,11 +77,11 @@ export default function App() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '12px',
-                background: 'rgba(255,255,255,0.1)',
+                background: 'rgba(59, 130, 246, 0.15)',
                 backdropFilter: 'blur(10px)',
                 padding: '10px 24px',
                 borderRadius: '30px',
-                border: '1px solid rgba(255,255,255,0.2)',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
                 marginBottom: '24px'
               }}>
                 <div style={{
@@ -94,7 +94,7 @@ export default function App() {
                 }} />
                 <span style={{
                   fontSize: '13px',
-                  color: 'rgba(255,255,255,0.9)',
+                  color: 'rgba(255,255,255,0.95)',
                   fontWeight: '600',
                   letterSpacing: '0.5px'
                 }}>
@@ -170,11 +170,11 @@ export default function App() {
                 }
               ].map((stat, idx) => (
                 <div key={idx} style={{
-                  background: 'rgba(255,255,255,0.08)',
+                  background: 'rgba(255,255,255,0.05)',
                   backdropFilter: 'blur(20px)',
                   padding: '28px',
                   borderRadius: '16px',
-                  border: '1px solid rgba(255,255,255,0.15)',
+                  border: '1px solid rgba(255,255,255,0.1)',
                   transition: 'all 0.3s',
                   cursor: 'pointer',
                   position: 'relative',
@@ -182,13 +182,13 @@ export default function App() {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)'
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.12)'
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'
                 }}>
                   {/* Gradient Accent */}
                   <div style={{
@@ -196,7 +196,7 @@ export default function App() {
                     top: 0,
                     left: 0,
                     right: 0,
-                    height: '4px',
+                    height: '3px',
                     background: stat.bgGradient
                   }} />
 
@@ -233,7 +233,7 @@ export default function App() {
 
         {/* Analytics Section with Modern Design */}
         <section id="analytics" style={{
-          background: 'white',
+          background: '#ffffff',
           padding: '80px 32px',
           position: 'relative'
         }}>
@@ -248,7 +248,7 @@ export default function App() {
             }}>
               <div style={{
                 display: 'inline-block',
-                background: 'linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%)',
+                background: '#ede9fe',
                 padding: '8px 20px',
                 borderRadius: '20px',
                 marginBottom: '16px'
@@ -296,7 +296,7 @@ export default function App() {
             }}>
               {[
                 {
-                  gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
                   icon: '🎯',
                   title: 'Smart Targeting',
                   desc: 'AI-powered customer segmentation and personalized marketing campaigns',
@@ -304,7 +304,7 @@ export default function App() {
                   metricLabel: 'Conversion Rate'
                 },
                 {
-                  gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                  gradient: 'linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)',
                   icon: '📈',
                   title: 'Growth Analytics',
                   desc: 'Real-time revenue tracking and predictive sales forecasting',
@@ -312,7 +312,7 @@ export default function App() {
                   metricLabel: 'YoY Growth'
                 },
                 {
-                  gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                  gradient: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)',
                   icon: '💡',
                   title: 'Business Intelligence',
                   desc: 'Advanced reporting with custom dashboards and automated insights',
@@ -346,7 +346,7 @@ export default function App() {
                     right: 0,
                     width: '200px',
                     height: '200px',
-                    background: 'rgba(255,255,255,0.1)',
+                    background: 'rgba(255,255,255,0.08)',
                     borderRadius: '50%',
                     transform: 'translate(50%, -50%)'
                   }} />
@@ -431,7 +431,7 @@ export default function App() {
               <div style={{ flex: 1, minWidth: '300px' }}>
                 <div style={{
                   display: 'inline-block',
-                  background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
+                  background: '#dbeafe',
                   padding: '8px 20px',
                   borderRadius: '20px',
                   marginBottom: '16px'
@@ -471,8 +471,8 @@ export default function App() {
                 background: 'white',
                 padding: '24px 28px',
                 borderRadius: '16px',
-                border: '2px solid #e2e8f0',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+                border: '1px solid #e2e8f0',
+                boxShadow: '0 4px 12px rgba(15, 23, 42, 0.08)'
               }}>
                 <div style={{ 
                   fontSize: '32px', 
@@ -486,7 +486,8 @@ export default function App() {
                   color: '#64748b', 
                   fontWeight: '600',
                   marginBottom: '4px',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  letterSpacing: '0.5px'
                 }}>
                   TOTAL RECORDS
                 </div>
@@ -504,9 +505,9 @@ export default function App() {
             {/* Search Bar */}
             <div style={{
               background: 'white',
-              borderRadius: '20px',
+              borderRadius: '16px',
               padding: '32px',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+              boxShadow: '0 1px 3px rgba(15, 23, 42, 0.08)',
               border: '1px solid #e2e8f0',
               marginBottom: '24px'
             }}>
@@ -528,9 +529,9 @@ export default function App() {
               <section>
                 <div style={{
                   background: 'white',
-                  borderRadius: '20px',
+                  borderRadius: '16px',
                   padding: '32px',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                  boxShadow: '0 1px 3px rgba(15, 23, 42, 0.08)',
                   border: '1px solid #e2e8f0'
                 }}>
                   <Sorting />
