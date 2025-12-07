@@ -9,14 +9,12 @@ export default function Navbar() {
   }
 
   const handleExportData = () => {
-    // Get current data from the page
     const tableRows = document.querySelectorAll('table tbody tr')
     if (tableRows.length === 0) {
       alert('No data to export')
       return
     }
 
-    // Create CSV content
     const headers = ['Date', 'Customer Name', 'Phone', 'Region', 'Category', 'Quantity', 'Amount']
     const csvContent = [
       headers.join(','),
@@ -29,7 +27,6 @@ export default function Navbar() {
       })
     ].join('\n')
 
-    // Create and download file
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
     const link = document.createElement('a')
     const url = URL.createObjectURL(blob)
@@ -43,9 +40,10 @@ export default function Navbar() {
 
   return (
     <nav style={{
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: 'rgba(15, 23, 41, 0.95)',
+      backdropFilter: 'blur(10px)',
       padding: '16px 32px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+      borderBottom: '1px solid rgba(255,255,255,0.1)',
       position: 'sticky',
       top: 0,
       zIndex: 1000
@@ -60,11 +58,11 @@ export default function Navbar() {
         {/* Logo and Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{
-            background: 'white',
+            background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
             padding: '8px 12px',
             borderRadius: '8px',
             fontSize: '24px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
           }}>
             📊
           </div>
@@ -72,7 +70,7 @@ export default function Navbar() {
             <h1 style={{
               margin: 0,
               color: 'white',
-              fontSize: '24px',
+              fontSize: '20px',
               fontWeight: '700',
               letterSpacing: '-0.5px'
             }}>
@@ -80,8 +78,8 @@ export default function Navbar() {
             </h1>
             <p style={{
               margin: 0,
-              color: 'rgba(255,255,255,0.9)',
-              fontSize: '13px',
+              color: 'rgba(255,255,255,0.5)',
+              fontSize: '12px',
               fontWeight: '400'
             }}>
               Advanced Analytics & Insights
@@ -92,25 +90,30 @@ export default function Navbar() {
         {/* Navigation Links */}
         <div style={{
           display: 'flex',
-          gap: '24px',
+          gap: '8px',
           alignItems: 'center'
         }}>
           <button
             onClick={() => scrollToSection('dashboard')}
             style={{
               color: 'white',
-              textDecoration: 'none',
-              fontSize: '15px',
+              fontSize: '14px',
               fontWeight: '500',
-              padding: '8px 16px',
+              padding: '10px 20px',
               borderRadius: '8px',
               transition: 'all 0.2s',
-              background: 'rgba(255,255,255,0.1)',
-              border: 'none',
+              background: 'rgba(59, 130, 246, 0.1)',
+              border: '1px solid rgba(59, 130, 246, 0.3)',
               cursor: 'pointer'
             }}
-            onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
-            onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}
+            onMouseOver={(e) => {
+              e.target.style.background = 'rgba(59, 130, 246, 0.2)'
+              e.target.style.borderColor = '#3b82f6'
+            }}
+            onMouseOut={(e) => {
+              e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+              e.target.style.borderColor = 'rgba(59, 130, 246, 0.3)'
+            }}
           >
             📈 Dashboard
           </button>
@@ -118,19 +121,24 @@ export default function Navbar() {
           <button
             onClick={() => scrollToSection('analytics')}
             style={{
-              color: 'white',
-              textDecoration: 'none',
-              fontSize: '15px',
+              color: 'rgba(255,255,255,0.7)',
+              fontSize: '14px',
               fontWeight: '500',
-              padding: '8px 16px',
+              padding: '10px 20px',
               borderRadius: '8px',
               transition: 'all 0.2s',
               background: 'transparent',
-              border: 'none',
+              border: '1px solid transparent',
               cursor: 'pointer'
             }}
-            onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}
-            onMouseOut={(e) => e.target.style.background = 'transparent'}
+            onMouseOver={(e) => {
+              e.target.style.color = 'white'
+              e.target.style.background = 'rgba(255,255,255,0.05)'
+            }}
+            onMouseOut={(e) => {
+              e.target.style.color = 'rgba(255,255,255,0.7)'
+              e.target.style.background = 'transparent'
+            }}
           >
             📊 Analytics
           </button>
@@ -138,19 +146,24 @@ export default function Navbar() {
           <button
             onClick={() => scrollToSection('reports')}
             style={{
-              color: 'white',
-              textDecoration: 'none',
-              fontSize: '15px',
+              color: 'rgba(255,255,255,0.7)',
+              fontSize: '14px',
               fontWeight: '500',
-              padding: '8px 16px',
+              padding: '10px 20px',
               borderRadius: '8px',
               transition: 'all 0.2s',
               background: 'transparent',
-              border: 'none',
+              border: '1px solid transparent',
               cursor: 'pointer'
             }}
-            onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}
-            onMouseOut={(e) => e.target.style.background = 'transparent'}
+            onMouseOver={(e) => {
+              e.target.style.color = 'white'
+              e.target.style.background = 'rgba(255,255,255,0.05)'
+            }}
+            onMouseOut={(e) => {
+              e.target.style.color = 'rgba(255,255,255,0.7)'
+              e.target.style.background = 'transparent'
+            }}
           >
             📄 Reports
           </button>
@@ -158,24 +171,25 @@ export default function Navbar() {
           <button
             onClick={handleExportData}
             style={{
-              background: 'white',
-              color: '#667eea',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+              color: 'white',
               border: 'none',
-              padding: '10px 20px',
+              padding: '10px 24px',
               borderRadius: '8px',
               fontSize: '14px',
               fontWeight: '600',
               cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-              transition: 'all 0.2s'
+              boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
+              transition: 'all 0.2s',
+              marginLeft: '12px'
             }}
             onMouseOver={(e) => {
               e.target.style.transform = 'translateY(-2px)'
-              e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)'
+              e.target.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.4)'
             }}
             onMouseOut={(e) => {
               e.target.style.transform = 'translateY(0)'
-              e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)'
+              e.target.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)'
             }}
           >
             💾 Export Data

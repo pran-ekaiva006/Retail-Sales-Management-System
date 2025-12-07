@@ -2,15 +2,17 @@ import React from 'react'
 import useStore from '../utils/store.js'
 
 const FilterSection = ({title, icon, children}) => (
-  <div style={{marginBottom: '24px'}}>
+  <div style={{marginBottom: '20px'}}>
     <div style={{
-      fontSize: '13px',
+      fontSize: '12px',
       fontWeight: '600',
-      color: '#0f172a',
+      color: 'rgba(255,255,255,0.7)',
       marginBottom: '8px',
       display: 'flex',
       alignItems: 'center',
-      gap: '6px'
+      gap: '6px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.5px'
     }}>
       <span>{icon}</span>
       {title}
@@ -21,15 +23,15 @@ const FilterSection = ({title, icon, children}) => (
 
 const inputStyle = {
   width: '100%',
-  padding: '10px 12px',
+  padding: '12px',
   fontSize: '14px',
-  border: '1px solid #e2e8f0',
+  border: '1px solid rgba(255,255,255,0.1)',
   borderRadius: '8px',
   outline: 'none',
   transition: 'all 0.2s',
   boxSizing: 'border-box',
-  background: 'white',
-  color: '#0f172a'
+  background: 'rgba(255,255,255,0.03)',
+  color: 'white'
 }
 
 export default function Filters(){
@@ -37,17 +39,17 @@ export default function Filters(){
   
   return (
     <aside style={{
-      background: 'white',
+      background: 'rgba(255, 255, 255, 0.03)',
       padding: '24px',
       borderRadius: '16px',
-      border: '1px solid #e2e8f0',
-      boxShadow: '0 1px 3px rgba(15, 23, 42, 0.08)'
+      border: '1px solid rgba(255,255,255,0.1)',
+      backdropFilter: 'blur(10px)'
     }}>
       <h3 style={{
-        margin: '0 0 20px 0',
-        fontSize: '18px',
+        margin: '0 0 24px 0',
+        fontSize: '16px',
         fontWeight: '700',
-        color: '#0f172a',
+        color: 'white',
         display: 'flex',
         alignItems: 'center',
         gap: '8px'
@@ -61,8 +63,14 @@ export default function Filters(){
           onChange={e=>setParam('regions', e.target.value)} 
           placeholder="e.g., North, South, East"
           style={inputStyle}
-          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+          onFocus={(e) => {
+            e.target.style.borderColor = '#3b82f6'
+            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+            e.target.style.background = 'rgba(255,255,255,0.03)'
+          }}
         />
       </FilterSection>
 
@@ -72,8 +80,14 @@ export default function Filters(){
           onChange={e=>setParam('gender', e.target.value)} 
           placeholder="e.g., Male, Female"
           style={inputStyle}
-          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+          onFocus={(e) => {
+            e.target.style.borderColor = '#3b82f6'
+            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+            e.target.style.background = 'rgba(255,255,255,0.03)'
+          }}
         />
       </FilterSection>
 
@@ -86,8 +100,14 @@ export default function Filters(){
             placeholder="Min"
             min="0"
             style={inputStyle}
-            onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-            onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+            onFocus={(e) => {
+              e.target.style.borderColor = '#3b82f6'
+              e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+              e.target.style.background = 'rgba(255,255,255,0.03)'
+            }}
           />
           <input 
             type="number" 
@@ -96,8 +116,14 @@ export default function Filters(){
             placeholder="Max"
             min="0"
             style={inputStyle}
-            onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-            onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+            onFocus={(e) => {
+              e.target.style.borderColor = '#3b82f6'
+              e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+              e.target.style.background = 'rgba(255,255,255,0.03)'
+            }}
           />
         </div>
       </FilterSection>
@@ -108,8 +134,14 @@ export default function Filters(){
           onChange={e=>setParam('categories', e.target.value)} 
           placeholder="e.g., Electronics, Fashion"
           style={inputStyle}
-          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+          onFocus={(e) => {
+            e.target.style.borderColor = '#3b82f6'
+            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+            e.target.style.background = 'rgba(255,255,255,0.03)'
+          }}
         />
       </FilterSection>
 
@@ -119,8 +151,14 @@ export default function Filters(){
           onChange={e=>setParam('tags', e.target.value)} 
           placeholder="e.g., New, Sale"
           style={inputStyle}
-          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+          onFocus={(e) => {
+            e.target.style.borderColor = '#3b82f6'
+            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+            e.target.style.background = 'rgba(255,255,255,0.03)'
+          }}
         />
       </FilterSection>
 
@@ -130,8 +168,14 @@ export default function Filters(){
           onChange={e=>setParam('paymentMethods', e.target.value)} 
           placeholder="e.g., Card, Cash"
           style={inputStyle}
-          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+          onFocus={(e) => {
+            e.target.style.borderColor = '#3b82f6'
+            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+            e.target.style.background = 'rgba(255,255,255,0.03)'
+          }}
         />
       </FilterSection>
 
@@ -140,17 +184,29 @@ export default function Filters(){
           type="date"
           value={params.startDate} 
           onChange={e=>setParam('startDate', e.target.value)}
-          style={{...inputStyle, marginBottom: '8px'}}
-          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+          style={{...inputStyle, marginBottom: '8px', colorScheme: 'dark'}}
+          onFocus={(e) => {
+            e.target.style.borderColor = '#3b82f6'
+            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+            e.target.style.background = 'rgba(255,255,255,0.03)'
+          }}
         />
         <input 
           type="date"
           value={params.endDate} 
           onChange={e=>setParam('endDate', e.target.value)}
-          style={inputStyle}
-          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-          onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+          style={{...inputStyle, colorScheme: 'dark'}}
+          onFocus={(e) => {
+            e.target.style.borderColor = '#3b82f6'
+            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+            e.target.style.background = 'rgba(255,255,255,0.03)'
+          }}
         />
       </FilterSection>
 
@@ -159,7 +215,7 @@ export default function Filters(){
         style={{
           width: '100%',
           padding: '12px',
-          background: '#3b82f6',
+          background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
           color: 'white',
           border: 'none',
           borderRadius: '8px',
@@ -167,15 +223,16 @@ export default function Filters(){
           fontWeight: '600',
           cursor: 'pointer',
           transition: 'all 0.2s',
-          boxShadow: '0 1px 2px rgba(59, 130, 246, 0.3)'
+          boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
+          marginTop: '8px'
         }}
         onMouseOver={e => {
-          e.target.style.background = '#2563eb'
-          e.target.style.boxShadow = '0 4px 8px rgba(59, 130, 246, 0.4)'
+          e.target.style.transform = 'translateY(-2px)'
+          e.target.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.4)'
         }}
         onMouseOut={e => {
-          e.target.style.background = '#3b82f6'
-          e.target.style.boxShadow = '0 1px 2px rgba(59, 130, 246, 0.3)'
+          e.target.style.transform = 'translateY(0)'
+          e.target.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)'
         }}
       >
         🔄 Reset Filters
