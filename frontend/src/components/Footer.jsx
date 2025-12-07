@@ -5,11 +5,11 @@ export default function Footer() {
   
   return (
     <footer style={{
-      background: '#0f1729',
+      background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
       color: 'white',
-      marginTop: '60px',
-      padding: '60px 32px 32px',
-      borderTop: '1px solid rgba(255,255,255,0.1)',
+      marginTop: '0',
+      padding: '48px 32px 32px',
+      borderTop: '1px solid rgba(148, 163, 184, 0.1)',
       position: 'relative'
     }}>
       {/* Decorative top gradient line */}
@@ -18,60 +18,74 @@ export default function Footer() {
         top: 0,
         left: 0,
         right: 0,
-        height: '3px',
-        background: 'linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%)'
+        height: '2px',
+        background: 'linear-gradient(90deg, transparent 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, transparent 100%)',
+        opacity: 0.6
       }} />
 
       <div style={{
         maxWidth: '1400px',
         margin: '0 auto',
       }}>
-        {/* Main Content */}
+        {/* Main Content - Simplified Grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: '48px',
-          marginBottom: '48px'
+          marginBottom: '40px'
         }}>
           {/* Brand Section */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
               <div style={{
                 background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-                padding: '12px 16px',
-                borderRadius: '12px',
-                fontSize: '28px',
-                boxShadow: '0 8px 24px rgba(59, 130, 246, 0.3)'
+                padding: '12px 14px',
+                borderRadius: '14px',
+                fontSize: '32px',
+                boxShadow: '0 8px 24px rgba(59, 130, 246, 0.35)',
+                border: '2px solid rgba(255, 255, 255, 0.15)'
               }}>
                 📊
               </div>
-              <h3 style={{
-                margin: 0,
-                fontSize: '22px',
-                fontWeight: '800',
-                letterSpacing: '-0.5px',
-                color: 'white'
-              }}>
-                Retail Sales Dashboard
-              </h3>
+              <div>
+                <h3 style={{
+                  margin: 0,
+                  fontSize: '22px',
+                  fontWeight: '800',
+                  letterSpacing: '-0.5px',
+                  color: '#f1f5f9',
+                  lineHeight: '1.2'
+                }}>
+                  Retail Sales Dashboard
+                </h3>
+                <p style={{
+                  margin: '4px 0 0 0',
+                  fontSize: '13px',
+                  color: '#94a3b8',
+                  fontWeight: '500'
+                }}>
+                  Advanced Analytics Platform
+                </p>
+              </div>
             </div>
             <p style={{
               margin: 0,
               fontSize: '14px',
               color: 'rgba(255,255,255,0.6)',
-              lineHeight: '1.8'
+              lineHeight: '1.8',
+              maxWidth: '400px'
             }}>
-              Advanced analytics platform for retail businesses. Real-time insights, powerful filtering, and beautiful data visualization.
+              Real-time insights, powerful filtering, and beautiful data visualization for retail businesses.
             </p>
           </div>
 
-          {/* Tech Stack */}
+          {/* Tech Stack - Condensed */}
           <div>
             <h4 style={{
               margin: '0 0 20px 0',
-              fontSize: '14px',
+              fontSize: '15px',
               fontWeight: '700',
-              color: 'white',
+              color: '#f1f5f9',
               letterSpacing: '0.5px',
               textTransform: 'uppercase',
               display: 'flex',
@@ -83,7 +97,7 @@ export default function Footer() {
             <div style={{
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '8px'
+              gap: '10px'
             }}>
               {[
                 { name: 'React', color: '#3b82f6' },
@@ -97,22 +111,24 @@ export default function Footer() {
                   background: 'rgba(255,255,255,0.05)',
                   padding: '8px 16px',
                   borderRadius: '8px',
-                  fontSize: '12px',
+                  fontSize: '13px',
                   fontWeight: '600',
                   backdropFilter: 'blur(10px)',
-                  border: `1px solid ${tech.color}30`,
-                  color: 'rgba(255,255,255,0.8)',
+                  border: `1.5px solid ${tech.color}40`,
+                  color: 'rgba(255,255,255,0.85)',
                   transition: 'all 0.2s',
                   cursor: 'pointer'
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.background = `${tech.color}20`
                   e.currentTarget.style.borderColor = tech.color
+                  e.currentTarget.style.color = 'white'
                   e.currentTarget.style.transform = 'translateY(-2px)'
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
-                  e.currentTarget.style.borderColor = `${tech.color}30`
+                  e.currentTarget.style.borderColor = `${tech.color}40`
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.85)'
                   e.currentTarget.style.transform = 'translateY(0)'
                 }}>
                   {tech.name}
@@ -121,13 +137,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links - Simplified */}
           <div>
             <h4 style={{
               margin: '0 0 20px 0',
-              fontSize: '14px',
+              fontSize: '15px',
               fontWeight: '700',
-              color: 'white',
+              color: '#f1f5f9',
               letterSpacing: '0.5px',
               textTransform: 'uppercase',
               display: 'flex',
@@ -139,34 +155,33 @@ export default function Footer() {
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '12px'
+              gap: '14px'
             }}>
               {[
                 { icon: '📈', label: 'Dashboard', href: '#dashboard' },
                 { icon: '📊', label: 'Analytics', href: '#analytics' },
-                { icon: '📄', label: 'Reports', href: '#reports' },
-                { icon: '⚙️', label: 'Settings', href: '#settings' }
+                { icon: '📄', label: 'Reports', href: '#reports' }
               ].map((link) => (
                 <a key={link.label} href={link.href} style={{
                   color: 'rgba(255,255,255,0.6)',
                   textDecoration: 'none',
-                  fontSize: '14px',
+                  fontSize: '15px',
                   transition: 'all 0.2s',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px',
-                  padding: '6px 0'
+                  fontWeight: '500'
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.color = 'white'
+                  e.currentTarget.style.color = '#3b82f6'
                   e.currentTarget.style.transform = 'translateX(4px)'
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.color = 'rgba(255,255,255,0.6)'
                   e.currentTarget.style.transform = 'translateX(0)'
                 }}>
-                  <span style={{ fontSize: '18px' }}>{link.icon}</span>
-                  <span style={{ fontWeight: '500' }}>{link.label}</span>
+                  <span style={{ fontSize: '20px' }}>{link.icon}</span>
+                  <span>{link.label}</span>
                 </a>
               ))}
             </div>
@@ -176,11 +191,11 @@ export default function Footer() {
         {/* Divider */}
         <div style={{
           height: '1px',
-          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
-          margin: '40px 0'
+          background: 'linear-gradient(90deg, transparent 0%, rgba(148, 163, 184, 0.2) 50%, transparent 100%)',
+          margin: '40px 0 32px 0'
         }} />
 
-        {/* Bottom Section */}
+        {/* Bottom Section - Redesigned */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -188,7 +203,7 @@ export default function Footer() {
           flexWrap: 'wrap',
           gap: '24px'
         }}>
-          {/* Developer Info */}
+          {/* Developer Info - Compact */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -196,22 +211,25 @@ export default function Footer() {
           }}>
             <div style={{
               background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-              padding: '14px',
+              padding: '12px',
               borderRadius: '12px',
-              fontSize: '24px',
-              boxShadow: '0 8px 24px rgba(59, 130, 246, 0.3)',
-              border: '2px solid rgba(255,255,255,0.1)'
+              fontSize: '28px',
+              boxShadow: '0 6px 20px rgba(59, 130, 246, 0.3)',
+              border: '2px solid rgba(255,255,255,0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
               👨‍💻
             </div>
             <div>
               <p style={{
                 margin: '0 0 4px 0',
-                fontSize: '12px',
+                fontSize: '11px',
                 color: 'rgba(255,255,255,0.5)',
                 fontWeight: '600',
                 textTransform: 'uppercase',
-                letterSpacing: '0.5px'
+                letterSpacing: '0.8px'
               }}>
                 Designed & Developed by
               </p>
@@ -219,8 +237,8 @@ export default function Footer() {
                 margin: 0,
                 fontSize: '18px',
                 fontWeight: '700',
-                color: 'white',
-                letterSpacing: '0.5px'
+                color: '#f1f5f9',
+                letterSpacing: '0.3px'
               }}>
                 Pranjal Kumar Verma
               </p>
@@ -234,14 +252,7 @@ export default function Footer() {
             gap: '24px',
             flexWrap: 'wrap'
           }}>
-            <p style={{
-              margin: 0,
-              fontSize: '14px',
-              color: 'rgba(255,255,255,0.5)',
-              fontWeight: '500'
-            }}>
-              © {currentYear} All rights reserved
-            </p>
+            {/* Social Icons */}
             <div style={{
               display: 'flex',
               gap: '12px'
@@ -257,23 +268,23 @@ export default function Footer() {
                   rel={social.label !== 'Email' ? 'noopener noreferrer' : undefined}
                   title={social.label}
                   style={{
-                    width: '40px',
-                    height: '40px',
+                    width: '44px',
+                    height: '44px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     background: 'rgba(255,255,255,0.05)',
-                    borderRadius: '10px',
-                    fontSize: '20px',
-                    transition: 'all 0.3s',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: '12px',
+                    fontSize: '22px',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    border: '1.5px solid rgba(255,255,255,0.1)',
                     textDecoration: 'none'
                   }}
                   onMouseOver={(e) => {
-                    e.currentTarget.style.background = 'rgba(59, 130, 246, 0.2)'
-                    e.currentTarget.style.borderColor = '#3b82f6'
-                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.1)'
-                    e.currentTarget.style.boxShadow = '0 8px 16px rgba(59, 130, 246, 0.3)'
+                    e.currentTarget.style.background = 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)'
+                    e.currentTarget.style.borderColor = 'transparent'
+                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)'
+                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(59, 130, 246, 0.4)'
                   }}
                   onMouseOut={(e) => {
                     e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
@@ -285,10 +296,20 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+
+            {/* Copyright */}
+            <p style={{
+              margin: 0,
+              fontSize: '14px',
+              color: 'rgba(255,255,255,0.5)',
+              fontWeight: '500'
+            }}>
+              © {currentYear} All rights reserved
+            </p>
           </div>
         </div>
 
-        {/* Signature Badge */}
+        {/* Love Badge - Centered */}
         <div style={{
           marginTop: '32px',
           textAlign: 'center'
@@ -297,18 +318,23 @@ export default function Footer() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '10px',
-            background: 'rgba(255,255,255,0.03)',
-            padding: '12px 24px',
+            background: 'rgba(255,255,255,0.04)',
+            padding: '10px 24px',
             borderRadius: '30px',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)'
           }}>
-            <span style={{ fontSize: '18px', animation: 'pulse 2s infinite' }}>❤️</span>
+            <span style={{ 
+              fontSize: '18px', 
+              animation: 'heartbeat 1.5s infinite'
+            }}>
+              ❤️
+            </span>
             <span style={{
               fontSize: '13px',
               color: 'rgba(255,255,255,0.7)',
               fontWeight: '600',
-              letterSpacing: '0.5px'
+              letterSpacing: '0.3px'
             }}>
               Made with passion by Pranjal Kumar Verma
             </span>
@@ -316,6 +342,21 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Add animations */}
+      <style>{`
+        @keyframes heartbeat {
+          0%, 100% {
+            transform: scale(1);
+          }
+          15% {
+            transform: scale(1.2);
+          }
+          30% {
+            transform: scale(1);
+          }
+        }
+      `}</style>
     </footer>
   )
 }

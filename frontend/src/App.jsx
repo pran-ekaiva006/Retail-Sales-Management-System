@@ -39,7 +39,7 @@ export default function App() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#0a0e1a',
+      background: 'linear-gradient(to bottom, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
       display: 'flex',
       flexDirection: 'column'
     }}>
@@ -48,10 +48,10 @@ export default function App() {
 
       {/* Main Content */}
       <main style={{ flex: 1 }}>
-        {/* Hero Dashboard Section */}
+        {/* Hero Dashboard Section - Updated Colors */}
         <section id="dashboard" style={{
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
-          padding: isMobile ? '40px 20px' : '80px 32px',
+          background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+          padding: isMobile ? '60px 20px' : '100px 40px',
           position: 'relative',
           overflow: 'hidden'
         }}>
@@ -62,21 +62,36 @@ export default function App() {
             left: 0,
             right: 0,
             bottom: 0,
-            opacity: 0.05,
-            backgroundImage: 'radial-gradient(circle at 20% 50%, #3b82f6 2px, transparent 2px), radial-gradient(circle at 80% 80%, #8b5cf6 2px, transparent 2px)',
-            backgroundSize: isMobile ? '30px 30px' : '60px 60px'
+            opacity: 0.03,
+            backgroundImage: `
+              radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px),
+              radial-gradient(circle at 75% 75%, #8b5cf6 2px, transparent 2px)
+            `,
+            backgroundSize: '50px 50px'
           }} />
 
-          {/* Decorative Gradient Orbs */}
+          {/* Gradient Orbs */}
           <div style={{
             position: 'absolute',
-            top: '-20%',
-            right: '-10%',
-            width: isMobile ? '300px' : '700px',
-            height: isMobile ? '300px' : '700px',
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
+            top: '-10%',
+            right: '-5%',
+            width: isMobile ? '400px' : '800px',
+            height: isMobile ? '400px' : '800px',
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
             borderRadius: '50%',
-            filter: 'blur(80px)',
+            filter: 'blur(60px)',
+            pointerEvents: 'none'
+          }} />
+
+          <div style={{
+            position: 'absolute',
+            bottom: '-10%',
+            left: '-5%',
+            width: isMobile ? '400px' : '800px',
+            height: isMobile ? '400px' : '800px',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(60px)',
             pointerEvents: 'none'
           }} />
 
@@ -206,12 +221,11 @@ export default function App() {
           </div>
         </section>
 
-        {/* Analytics Section */}
+        {/* Analytics Section - Updated */}
         <section id="analytics" style={{
-          background: 'linear-gradient(135deg, #1a1f2e 0%, #252b3a 100%)',
-          padding: isMobile ? '40px 20px' : '80px 32px',
-          position: 'relative',
-          borderTop: '1px solid rgba(139, 92, 246, 0.2)'
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+          padding: isMobile ? '60px 20px' : '100px 40px',
+          borderTop: '1px solid rgba(148, 163, 184, 0.1)'
         }}>
           <div style={{
             maxWidth: '1400px',
@@ -362,11 +376,11 @@ export default function App() {
           </div>
         </section>
 
-        {/* Reports Section */}
+        {/* Reports Section - Updated */}
         <section id="reports" style={{
-          background: 'linear-gradient(135deg, #0a0e1a 0%, #151922 100%)',
-          padding: isMobile ? '40px 20px' : '80px 32px',
-          borderTop: '1px solid rgba(59, 130, 246, 0.2)'
+          background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
+          padding: isMobile ? '60px 20px' : '100px 40px',
+          borderTop: '1px solid rgba(148, 163, 184, 0.1)'
         }}>
           <div style={{
             maxWidth: '1400px',
