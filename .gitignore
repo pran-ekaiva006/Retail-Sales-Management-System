@@ -10,13 +10,18 @@ backend/src/data/data.csv
 
 # Dependencies
 **/node_modules/
-**/package-lock.json
+
+# Don't ignore package-lock.json - needed for Render deployment
+# **/package-lock.json
 **/yarn.lock
 
 # Environment variables
 **/.env
 **/.env.local
-**/.env.production
+
+# Keep production env templates
+!backend/.env.production
+!frontend/.env.production
 
 # Build outputs
 **/dist/
