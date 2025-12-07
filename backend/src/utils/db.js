@@ -2,9 +2,8 @@ import Database from 'better-sqlite3';
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
-
-const DB_PATH = path.join(process.cwd(), 'sales.db');
-const CSV_PATH = path.join(process.cwd(), 'src', 'data', 'data.csv');
+import { ensureCSVExists } from './download-csv.js';
+import { DB_PATH, CSV_PATH } from './paths.js';
 
 // Helper to parse CSV line (handles quoted fields)
 function parseCSVLine(line) {
@@ -38,12 +37,12 @@ function parseCSVLine(line) {
 function sanitizeColumnName(name) {
   return name
     .toLowerCase()
-    .replace(/\s+/g, '_')           // Replace spaces with underscores
-    .replace(/[^a-z0-9_]/g, '')     // Remove invalid characters
-    .replace(/^(\d)/, '_$1');       // Prefix if starts with number
+    .replace(/\s+/g, '_')
+    .replace(/[^a-z0-9_]/g, '')
+    .replace(/^(\d)/, '_$1');
 }
 
-export function initDB() {
+export async function initDB() {
   const db = new Database(DB_PATH);
   
   // Check if data already loaded
@@ -54,12 +53,15 @@ export function initDB() {
   if (tableExists) {
     const count = db.prepare('SELECT COUNT(*) as count FROM sales').get();
     console.log(`✅ Database ready with ${count.count} records`);
-    return Promise.resolve(db);
+    return db;
   }
+
+  // Try to download CSV if not exists
+  await ensureCSVExists();
 
   if (!fs.existsSync(CSV_PATH)) {
     console.warn(`⚠️  CSV file not found at ${CSV_PATH}`);
-    return Promise.resolve(db);
+    return db;
   }
 
   console.log('📂 Loading CSV data into database (streaming)...');
@@ -84,14 +86,12 @@ export function initDB() {
       lineCount++;
       
       if (lineCount === 1) {
-        // First line is headers
         headers = parseCSVLine(line);
         dbColumns = headers.map(sanitizeColumnName);
         
         console.log(`  Found ${headers.length} columns`);
         console.log(`  Creating table with columns:`, dbColumns.join(', '));
         
-        // Create table dynamically based on CSV headers
         const columnDefs = dbColumns.map(col => {
           if (col.includes('age') || col.includes('quantity')) {
             return `${col} INTEGER`;
@@ -115,7 +115,6 @@ export function initDB() {
           CREATE INDEX idx_date ON sales(date);
         `);
         
-        // Create dynamic insert statement
         const placeholders = dbColumns.map(() => '?').join(', ');
         insertStatement = db.prepare(`
           INSERT INTO sales (${dbColumns.join(', ')}) 
@@ -135,27 +134,22 @@ export function initDB() {
         return;
       }
 
-      if (!line.trim()) return; // Skip empty lines
+      if (!line.trim()) return;
 
       try {
         const values = parseCSVLine(line);
         
-        // Skip if row doesn't have enough data
         if (values.length < headers.length / 2) return;
 
-        // Pad values to match headers length
         while (values.length < headers.length) {
           values.push(null);
         }
 
-        // Clean and format values
         const cleanValues = values.slice(0, headers.length).map((val, idx) => {
           if (!val || val === '') return null;
           
-          // Remove quotes
           val = val.replace(/^["']|["']$/g, '').trim();
           
-          // Handle numeric fields based on column name
           const colName = dbColumns[idx];
           
           if (colName.includes('age') || colName.includes('quantity')) {
@@ -168,7 +162,6 @@ export function initDB() {
             return isNaN(num) ? null : num;
           }
           
-          // Clean phone numbers
           if (colName === 'phone_number') {
             return val.replace(/[\s\-\(\)\"\']/g, '');
           }
@@ -178,7 +171,6 @@ export function initDB() {
 
         batch.push(cleanValues);
 
-        // Insert in batches for performance
         if (batch.length >= batchSize) {
           insertBatch(batch);
           insertedCount += batch.length;
@@ -191,7 +183,6 @@ export function initDB() {
     });
 
     rl.on('close', () => {
-      // Insert remaining records
       if (batch.length > 0 && insertBatch) {
         insertBatch(batch);
         insertedCount += batch.length;

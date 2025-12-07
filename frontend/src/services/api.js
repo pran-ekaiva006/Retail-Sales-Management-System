@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+// Use environment variable for API URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api'
+
 const api = axios.create({
-  baseURL: 'http://localhost:5001/api',
+  baseURL: API_BASE_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
@@ -19,6 +22,7 @@ api.interceptors.response.use(
 export async function fetchSales(params) {
   try {
     console.log('API Request params:', params)
+    console.log('API Base URL:', API_BASE_URL)
     const response = await api.get('/sales', { params })
     console.log('API Response:', response.data)
     return response.data

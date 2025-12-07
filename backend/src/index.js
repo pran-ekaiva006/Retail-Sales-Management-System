@@ -4,8 +4,35 @@ import { initDB } from './utils/db.js';
 import salesRouter from './routes/sales.routes.js';
 
 const app = express();
-app.use(cors());
+
+// Configure CORS for production
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  process.env.FRONTEND_URL,
+  // Add your Render frontend URL here after deployment
+].filter(Boolean);
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 
 // Initialize database (async)
 let db = null;
@@ -21,12 +48,11 @@ initDB().then(database => {
     res.json({ status: 'ok', count: count.count });
   });
 
-  // Test endpoint to check phone numbers
   app.get('/api/test-phone', (req, res) => {
     const phone = req.query.phone || '9100671247';
-    const exact = db.prepare('SELECT * FROM sales WHERE phone = ? LIMIT 5').all(phone);
-    const like = db.prepare('SELECT * FROM sales WHERE phone LIKE ? LIMIT 5').all(`%${phone}%`);
-    const sample = db.prepare('SELECT phone FROM sales LIMIT 10').all();
+    const exact = db.prepare('SELECT * FROM sales WHERE phone_number = ? LIMIT 5').all(phone);
+    const like = db.prepare('SELECT * FROM sales WHERE phone_number LIKE ? LIMIT 5').all(`%${phone}%`);
+    const sample = db.prepare('SELECT phone_number FROM sales LIMIT 10').all();
     
     res.json({ 
       searchTerm: phone,
@@ -36,7 +62,6 @@ initDB().then(database => {
     });
   });
 
-  // Pass db to routes
   app.use((req, _res, next) => { 
     req.ctx = { db }; 
     next(); 
@@ -45,7 +70,12 @@ initDB().then(database => {
   app.use('/api/sales', salesRouter);
 
   const PORT = process.env.PORT || 5001;
-  app.listen(PORT, () => console.log(`🚀 Backend listening on :${PORT}`));
+  const HOST = '0.0.0.0'; // Important for Render
+  
+  app.listen(PORT, HOST, () => {
+    console.log(`🚀 Backend listening on ${HOST}:${PORT}`);
+    console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
 }).catch(err => {
   console.error('Failed to initialize database:', err);
   process.exit(1);
