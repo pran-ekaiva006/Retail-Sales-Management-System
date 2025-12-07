@@ -12,7 +12,7 @@ export default function App() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#f9fafb',
+      background: '#f8fafc',
       display: 'flex',
       flexDirection: 'column'
     }}>
@@ -21,31 +21,43 @@ export default function App() {
 
       {/* Main Content */}
       <main style={{ flex: 1 }}>
-        {/* Dashboard Section */}
+        {/* Hero Dashboard Section */}
         <section id="dashboard" style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          padding: '60px 32px',
+          background: 'linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)',
+          padding: '80px 32px',
           position: 'relative',
           overflow: 'hidden'
         }}>
-          {/* Decorative Elements */}
+          {/* Animated Background Pattern */}
           <div style={{
             position: 'absolute',
-            top: '-50px',
-            right: '-50px',
-            width: '300px',
-            height: '300px',
-            background: 'rgba(255,255,255,0.1)',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.05,
+            backgroundImage: 'radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 80%, white 1px, transparent 1px)',
+            backgroundSize: '50px 50px'
+          }} />
+
+          {/* Decorative Gradient Orbs */}
+          <div style={{
+            position: 'absolute',
+            top: '-20%',
+            right: '-10%',
+            width: '600px',
+            height: '600px',
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%)',
             borderRadius: '50%',
-            filter: 'blur(60px)'
+            filter: 'blur(80px)'
           }} />
           <div style={{
             position: 'absolute',
-            bottom: '-100px',
-            left: '-100px',
-            width: '400px',
-            height: '400px',
-            background: 'rgba(255,255,255,0.05)',
+            bottom: '-20%',
+            left: '-10%',
+            width: '500px',
+            height: '500px',
+            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, transparent 70%)',
             borderRadius: '50%',
             filter: 'blur(80px)'
           }} />
@@ -56,71 +68,161 @@ export default function App() {
             position: 'relative',
             zIndex: 1
           }}>
+            {/* Hero Content */}
             <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px',
-              marginBottom: '16px'
+              textAlign: 'center',
+              marginBottom: '60px'
             }}>
               <div style={{
-                width: '60px',
-                height: '60px',
-                background: 'white',
-                borderRadius: '16px',
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '32px',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+                gap: '12px',
+                background: 'rgba(255,255,255,0.1)',
+                backdropFilter: 'blur(10px)',
+                padding: '10px 24px',
+                borderRadius: '30px',
+                border: '1px solid rgba(255,255,255,0.2)',
+                marginBottom: '24px'
               }}>
-                📊
-              </div>
-              <div>
-                <h2 style={{
-                  margin: 0,
-                  color: 'white',
-                  fontSize: '36px',
-                  fontWeight: '800',
-                  letterSpacing: '-1px'
-                }}>
-                  Sales Dashboard
-                </h2>
-                <p style={{
-                  margin: 0,
+                <div style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#10b981',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 10px #10b981',
+                  animation: 'pulse 2s infinite'
+                }} />
+                <span style={{
+                  fontSize: '13px',
                   color: 'rgba(255,255,255,0.9)',
-                  fontSize: '16px',
-                  fontWeight: '400'
+                  fontWeight: '600',
+                  letterSpacing: '0.5px'
                 }}>
-                  Real-time insights and performance metrics
-                </p>
+                  REAL-TIME DATA ANALYTICS
+                </span>
               </div>
+
+              <h1 style={{
+                margin: '0 0 20px 0',
+                color: 'white',
+                fontSize: '56px',
+                fontWeight: '800',
+                letterSpacing: '-2px',
+                lineHeight: '1.1'
+              }}>
+                Sales Performance
+                <br />
+                <span style={{
+                  background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>
+                  Dashboard
+                </span>
+              </h1>
+
+              <p style={{
+                margin: '0 auto',
+                maxWidth: '600px',
+                color: 'rgba(255,255,255,0.7)',
+                fontSize: '18px',
+                lineHeight: '1.6'
+              }}>
+                Monitor your business metrics, analyze trends, and make data-driven decisions with our comprehensive analytics platform
+              </p>
             </div>
 
-            {/* Quick Stats Preview */}
+            {/* Enhanced Stats Grid */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '16px',
-              marginTop: '32px'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+              gap: '20px'
             }}>
               {[
-                { icon: '📈', label: 'Live Data', value: 'Updating' },
-                { icon: '🔄', label: 'Auto-Refresh', value: 'Active' },
-                { icon: '⚡', label: 'Performance', value: 'Optimal' },
-                { icon: '🎯', label: 'Accuracy', value: '99.9%' }
+                { 
+                  icon: '📈', 
+                  label: 'Live Tracking', 
+                  value: 'Active',
+                  color: '#3b82f6',
+                  bgGradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'
+                },
+                { 
+                  icon: '🔄', 
+                  label: 'Auto-Sync', 
+                  value: 'Enabled',
+                  color: '#8b5cf6',
+                  bgGradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)'
+                },
+                { 
+                  icon: '⚡', 
+                  label: 'Response Time', 
+                  value: '<200ms',
+                  color: '#f59e0b',
+                  bgGradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'
+                },
+                { 
+                  icon: '🎯', 
+                  label: 'Uptime', 
+                  value: '99.9%',
+                  color: '#10b981',
+                  bgGradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
+                }
               ].map((stat, idx) => (
                 <div key={idx} style={{
-                  background: 'rgba(255,255,255,0.15)',
-                  backdropFilter: 'blur(10px)',
-                  padding: '20px',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(255,255,255,0.2)'
+                  background: 'rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(20px)',
+                  padding: '28px',
+                  borderRadius: '16px',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  transition: 'all 0.3s',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)'
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.12)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'
                 }}>
-                  <div style={{ fontSize: '28px', marginBottom: '8px' }}>{stat.icon}</div>
-                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', marginBottom: '4px' }}>
+                  {/* Gradient Accent */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '4px',
+                    background: stat.bgGradient
+                  }} />
+
+                  <div style={{ 
+                    fontSize: '36px', 
+                    marginBottom: '12px',
+                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
+                  }}>
+                    {stat.icon}
+                  </div>
+                  <div style={{ 
+                    fontSize: '13px', 
+                    color: 'rgba(255,255,255,0.6)', 
+                    marginBottom: '8px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
                     {stat.label}
                   </div>
-                  <div style={{ fontSize: '18px', color: 'white', fontWeight: '700' }}>
+                  <div style={{ 
+                    fontSize: '24px', 
+                    color: 'white', 
+                    fontWeight: '700',
+                    letterSpacing: '-0.5px'
+                  }}>
                     {stat.value}
                   </div>
                 </div>
@@ -129,11 +231,11 @@ export default function App() {
           </div>
         </section>
 
-        {/* Analytics Section */}
+        {/* Analytics Section with Modern Design */}
         <section id="analytics" style={{
           background: 'white',
-          padding: '60px 32px',
-          borderBottom: '1px solid #e5e7eb'
+          padding: '80px 32px',
+          position: 'relative'
         }}>
           <div style={{
             maxWidth: '1400px',
@@ -141,109 +243,177 @@ export default function App() {
           }}>
             {/* Section Header */}
             <div style={{
-              marginBottom: '40px',
+              marginBottom: '60px',
               textAlign: 'center'
             }}>
               <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '12px',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                padding: '12px 24px',
-                borderRadius: '12px',
+                display: 'inline-block',
+                background: 'linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%)',
+                padding: '8px 20px',
+                borderRadius: '20px',
                 marginBottom: '16px'
               }}>
-                <span style={{ fontSize: '28px' }}>📊</span>
-                <h2 style={{
-                  margin: 0,
-                  color: 'white',
-                  fontSize: '28px',
+                <span style={{
+                  fontSize: '13px',
                   fontWeight: '700',
-                  letterSpacing: '-0.5px'
+                  color: '#7c3aed',
+                  letterSpacing: '0.5px'
                 }}>
-                  Analytics Overview
-                </h2>
+                  📊 ANALYTICS OVERVIEW
+                </span>
               </div>
-              <p style={{
-                margin: 0,
-                fontSize: '16px',
-                color: '#6b7280',
-                maxWidth: '600px',
-                marginLeft: 'auto',
-                marginRight: 'auto'
+              
+              <h2 style={{
+                margin: '0 0 16px 0',
+                fontSize: '42px',
+                fontWeight: '800',
+                color: '#0f172a',
+                letterSpacing: '-1px'
               }}>
-                Monitor your key performance indicators and track business growth in real-time
+                Key Performance Metrics
+              </h2>
+              
+              <p style={{
+                margin: '0 auto',
+                fontSize: '16px',
+                color: '#64748b',
+                maxWidth: '600px',
+                lineHeight: '1.7'
+              }}>
+                Track your most important business indicators and gain actionable insights to drive growth
               </p>
             </div>
 
-            {/* Stats Cards with Enhanced Layout */}
+            {/* Main Stats Cards */}
             <StatsCards />
 
-            {/* Additional Analytics Info */}
+            {/* Feature Cards Grid */}
             <div style={{
-              marginTop: '48px',
+              marginTop: '60px',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
               gap: '24px'
             }}>
-              <div style={{
-                background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                padding: '32px',
-                borderRadius: '16px',
-                color: 'white',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <div style={{ fontSize: '40px', marginBottom: '16px' }}>🎯</div>
-                <h3 style={{ margin: '0 0 8px 0', fontSize: '20px', fontWeight: '700' }}>
-                  Goal Tracking
-                </h3>
-                <p style={{ margin: 0, fontSize: '14px', opacity: 0.9 }}>
-                  Set and monitor sales targets with visual progress indicators
-                </p>
-              </div>
+              {[
+                {
+                  gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  icon: '🎯',
+                  title: 'Smart Targeting',
+                  desc: 'AI-powered customer segmentation and personalized marketing campaigns',
+                  metric: '+45%',
+                  metricLabel: 'Conversion Rate'
+                },
+                {
+                  gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                  icon: '📈',
+                  title: 'Growth Analytics',
+                  desc: 'Real-time revenue tracking and predictive sales forecasting',
+                  metric: '+82%',
+                  metricLabel: 'YoY Growth'
+                },
+                {
+                  gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                  icon: '💡',
+                  title: 'Business Intelligence',
+                  desc: 'Advanced reporting with custom dashboards and automated insights',
+                  metric: '2.5hrs',
+                  metricLabel: 'Time Saved'
+                }
+              ].map((feature, idx) => (
+                <div key={idx} style={{
+                  background: feature.gradient,
+                  padding: '40px',
+                  borderRadius: '20px',
+                  color: 'white',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transition: 'all 0.3s',
+                  cursor: 'pointer',
+                  boxShadow: '0 10px 30px -10px rgba(0,0,0,0.2)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px)'
+                  e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0,0,0,0.3)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = '0 10px 30px -10px rgba(0,0,0,0.2)'
+                }}>
+                  {/* Background Pattern */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '200px',
+                    height: '200px',
+                    background: 'rgba(255,255,255,0.1)',
+                    borderRadius: '50%',
+                    transform: 'translate(50%, -50%)'
+                  }} />
 
-              <div style={{
-                background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                padding: '32px',
-                borderRadius: '16px',
-                color: 'white',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <div style={{ fontSize: '40px', marginBottom: '16px' }}>📈</div>
-                <h3 style={{ margin: '0 0 8px 0', fontSize: '20px', fontWeight: '700' }}>
-                  Trend Analysis
-                </h3>
-                <p style={{ margin: 0, fontSize: '14px', opacity: 0.9 }}>
-                  Identify patterns and forecast future sales performance
-                </p>
-              </div>
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ 
+                      fontSize: '48px', 
+                      marginBottom: '20px',
+                      filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))'
+                    }}>
+                      {feature.icon}
+                    </div>
+                    
+                    <h3 style={{ 
+                      margin: '0 0 12px 0', 
+                      fontSize: '24px', 
+                      fontWeight: '700',
+                      letterSpacing: '-0.5px'
+                    }}>
+                      {feature.title}
+                    </h3>
+                    
+                    <p style={{ 
+                      margin: '0 0 24px 0', 
+                      fontSize: '15px', 
+                      opacity: 0.95,
+                      lineHeight: '1.6'
+                    }}>
+                      {feature.desc}
+                    </p>
 
-              <div style={{
-                background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                padding: '32px',
-                borderRadius: '16px',
-                color: 'white',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <div style={{ fontSize: '40px', marginBottom: '16px' }}>💡</div>
-                <h3 style={{ margin: '0 0 8px 0', fontSize: '20px', fontWeight: '700' }}>
-                  Smart Insights
-                </h3>
-                <p style={{ margin: 0, fontSize: '14px', opacity: 0.9 }}>
-                  AI-powered recommendations for business optimization
-                </p>
-              </div>
+                    {/* Metric Badge */}
+                    <div style={{
+                      display: 'inline-flex',
+                      flexDirection: 'column',
+                      background: 'rgba(255,255,255,0.2)',
+                      backdropFilter: 'blur(10px)',
+                      padding: '12px 20px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.3)'
+                    }}>
+                      <span style={{ 
+                        fontSize: '24px', 
+                        fontWeight: '800',
+                        marginBottom: '4px'
+                      }}>
+                        {feature.metric}
+                      </span>
+                      <span style={{ 
+                        fontSize: '12px', 
+                        opacity: 0.9,
+                        fontWeight: '600'
+                      }}>
+                        {feature.metricLabel}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Reports Section */}
+        {/* Reports Section with Enhanced Design */}
         <section id="reports" style={{
-          background: '#f9fafb',
-          padding: '60px 32px'
+          background: '#f8fafc',
+          padding: '80px 32px'
         }}>
           <div style={{
             maxWidth: '1400px',
@@ -251,57 +421,82 @@ export default function App() {
           }}>
             {/* Section Header */}
             <div style={{
-              marginBottom: '40px',
+              marginBottom: '48px',
               display: 'flex',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               justifyContent: 'space-between',
               flexWrap: 'wrap',
-              gap: '20px'
+              gap: '24px'
             }}>
-              <div>
+              <div style={{ flex: 1, minWidth: '300px' }}>
                 <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  marginBottom: '8px'
+                  display: 'inline-block',
+                  background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
+                  padding: '8px 20px',
+                  borderRadius: '20px',
+                  marginBottom: '16px'
                 }}>
-                  <span style={{ fontSize: '32px' }}>📄</span>
-                  <h2 style={{
-                    margin: 0,
-                    fontSize: '32px',
+                  <span style={{
+                    fontSize: '13px',
                     fontWeight: '700',
-                    color: '#111827',
-                    letterSpacing: '-0.5px'
+                    color: '#1e40af',
+                    letterSpacing: '0.5px'
                   }}>
-                    Sales Reports
-                  </h2>
+                    📄 DETAILED REPORTS
+                  </span>
                 </div>
+
+                <h2 style={{
+                  margin: '0 0 12px 0',
+                  fontSize: '42px',
+                  fontWeight: '800',
+                  color: '#0f172a',
+                  letterSpacing: '-1px'
+                }}>
+                  Sales Data
+                </h2>
+                
                 <p style={{
                   margin: 0,
                   fontSize: '16px',
-                  color: '#6b7280'
+                  color: '#64748b',
+                  lineHeight: '1.6'
                 }}>
-                  Filter, search, and analyze your complete sales data
+                  Filter, search, and export your complete transaction history
                 </p>
               </div>
               
+              {/* Quick Stats Badge */}
               <div style={{
                 background: 'white',
-                padding: '12px 20px',
-                borderRadius: '12px',
-                border: '2px solid #e5e7eb',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px'
+                padding: '24px 28px',
+                borderRadius: '16px',
+                border: '2px solid #e2e8f0',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
               }}>
-                <span style={{ fontSize: '20px' }}>📊</span>
-                <div>
-                  <div style={{ fontSize: '12px', color: '#6b7280', fontWeight: '500' }}>
-                    Total Records
-                  </div>
-                  <div style={{ fontSize: '18px', color: '#111827', fontWeight: '700' }}>
-                    Loading...
-                  </div>
+                <div style={{ 
+                  fontSize: '32px', 
+                  marginBottom: '8px',
+                  textAlign: 'center'
+                }}>
+                  📊
+                </div>
+                <div style={{ 
+                  fontSize: '12px', 
+                  color: '#64748b', 
+                  fontWeight: '600',
+                  marginBottom: '4px',
+                  textAlign: 'center'
+                }}>
+                  TOTAL RECORDS
+                </div>
+                <div style={{ 
+                  fontSize: '28px', 
+                  color: '#0f172a', 
+                  fontWeight: '800',
+                  textAlign: 'center'
+                }}>
+                  Loading...
                 </div>
               </div>
             </div>
@@ -309,10 +504,10 @@ export default function App() {
             {/* Search Bar */}
             <div style={{
               background: 'white',
-              borderRadius: '16px',
-              padding: '24px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-              border: '1px solid #f3f4f6',
+              borderRadius: '20px',
+              padding: '32px',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+              border: '1px solid #e2e8f0',
               marginBottom: '24px'
             }}>
               <SearchBar />
@@ -321,7 +516,7 @@ export default function App() {
             {/* Main Content Grid */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: '320px 1fr',
+              gridTemplateColumns: '340px 1fr',
               gap: '24px'
             }}>
               {/* Sidebar Filters */}
@@ -333,10 +528,10 @@ export default function App() {
               <section>
                 <div style={{
                   background: 'white',
-                  borderRadius: '16px',
-                  padding: '24px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                  border: '1px solid #f3f4f6'
+                  borderRadius: '20px',
+                  padding: '32px',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                  border: '1px solid #e2e8f0'
                 }}>
                   <Sorting />
                   <SalesTable />
@@ -350,6 +545,20 @@ export default function App() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Add keyframe animation */}
+      <style>{`
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.7;
+            transform: scale(1.1);
+          }
+        }
+      `}</style>
     </div>
   )
 }
