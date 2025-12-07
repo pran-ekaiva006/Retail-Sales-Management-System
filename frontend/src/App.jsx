@@ -22,7 +22,7 @@ export default function App() {
       {/* Main Content */}
       <main style={{ flex: 1 }}>
         {/* Hero Section */}
-        <div style={{
+        <div id="dashboard" style={{
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           padding: '48px 32px',
           marginBottom: '32px'
@@ -50,7 +50,7 @@ export default function App() {
         </div>
 
         {/* Stats Cards */}
-        <div style={{
+        <div id="analytics" style={{
           maxWidth: '1400px',
           margin: '0 auto',
           padding: '0 32px'
@@ -59,7 +59,7 @@ export default function App() {
         </div>
 
         {/* Search Section */}
-        <div style={{
+        <div id="reports" style={{
           maxWidth: '1400px',
           margin: '0 auto',
           padding: '0 32px 32px'

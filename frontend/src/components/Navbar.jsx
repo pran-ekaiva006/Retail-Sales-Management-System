@@ -1,6 +1,46 @@
 import React from 'react'
 
 export default function Navbar() {
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
+  const handleExportData = () => {
+    // Get current data from the page
+    const tableRows = document.querySelectorAll('table tbody tr')
+    if (tableRows.length === 0) {
+      alert('No data to export')
+      return
+    }
+
+    // Create CSV content
+    const headers = ['Date', 'Customer Name', 'Phone', 'Region', 'Category', 'Quantity', 'Amount']
+    const csvContent = [
+      headers.join(','),
+      ...Array.from(tableRows).map(row => {
+        const cells = row.querySelectorAll('td')
+        return Array.from(cells).map(cell => {
+          const text = cell.textContent.trim().replace(/,/g, '')
+          return `"${text}"`
+        }).join(',')
+      })
+    ].join('\n')
+
+    // Create and download file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(blob)
+    link.setAttribute('href', url)
+    link.setAttribute('download', `sales_data_${new Date().toISOString().split('T')[0]}.csv`)
+    link.style.visibility = 'hidden'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
     <nav style={{
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
@@ -55,64 +95,89 @@ export default function Navbar() {
           gap: '24px',
           alignItems: 'center'
         }}>
-          <a href="#dashboard" style={{
-            color: 'white',
-            textDecoration: 'none',
-            fontSize: '15px',
-            fontWeight: '500',
-            padding: '8px 16px',
-            borderRadius: '8px',
-            transition: 'all 0.2s',
-            background: 'rgba(255,255,255,0.1)'
-          }}>
+          <button
+            onClick={() => scrollToSection('dashboard')}
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              fontSize: '15px',
+              fontWeight: '500',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              transition: 'all 0.2s',
+              background: 'rgba(255,255,255,0.1)',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
+            onMouseOut={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}
+          >
             📈 Dashboard
-          </a>
-          <a href="#analytics" style={{
-            color: 'white',
-            textDecoration: 'none',
-            fontSize: '15px',
-            fontWeight: '500',
-            padding: '8px 16px',
-            borderRadius: '8px',
-            transition: 'all 0.2s'
-          }}
-          onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}
-          onMouseOut={(e) => e.target.style.background = 'transparent'}>
+          </button>
+          
+          <button
+            onClick={() => scrollToSection('analytics')}
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              fontSize: '15px',
+              fontWeight: '500',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              transition: 'all 0.2s',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}
+            onMouseOut={(e) => e.target.style.background = 'transparent'}
+          >
             📊 Analytics
-          </a>
-          <a href="#reports" style={{
-            color: 'white',
-            textDecoration: 'none',
-            fontSize: '15px',
-            fontWeight: '500',
-            padding: '8px 16px',
-            borderRadius: '8px',
-            transition: 'all 0.2s'
-          }}
-          onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}
-          onMouseOut={(e) => e.target.style.background = 'transparent'}>
+          </button>
+          
+          <button
+            onClick={() => scrollToSection('reports')}
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              fontSize: '15px',
+              fontWeight: '500',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              transition: 'all 0.2s',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onMouseOver={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}
+            onMouseOut={(e) => e.target.style.background = 'transparent'}
+          >
             📄 Reports
-          </a>
-          <button style={{
-            background: 'white',
-            color: '#667eea',
-            border: 'none',
-            padding: '10px 20px',
-            borderRadius: '8px',
-            fontSize: '14px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-            transition: 'all 0.2s'
-          }}
-          onMouseOver={(e) => {
-            e.target.style.transform = 'translateY(-2px)'
-            e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)'
-          }}
-          onMouseOut={(e) => {
-            e.target.style.transform = 'translateY(0)'
-            e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)'
-          }}>
+          </button>
+          
+          <button
+            onClick={handleExportData}
+            style={{
+              background: 'white',
+              color: '#667eea',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              fontSize: '14px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              transition: 'all 0.2s'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.transform = 'translateY(-2px)'
+              e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)'
+            }}
+            onMouseOut={(e) => {
+              e.target.style.transform = 'translateY(0)'
+              e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+          >
             💾 Export Data
           </button>
         </div>
