@@ -12,7 +12,7 @@ export default function App() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#f1f5f9',
+      background: '#f8fafc',
       display: 'flex',
       flexDirection: 'column'
     }}>
@@ -144,33 +144,29 @@ export default function App() {
                   icon: '📈', 
                   label: 'Live Tracking', 
                   value: 'Active',
-                  color: '#3b82f6',
                   bgGradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'
                 },
                 { 
                   icon: '🔄', 
                   label: 'Auto-Sync', 
                   value: 'Enabled',
-                  color: '#8b5cf6',
                   bgGradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)'
                 },
                 { 
                   icon: '⚡', 
                   label: 'Response Time', 
                   value: '<200ms',
-                  color: '#f59e0b',
                   bgGradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'
                 },
                 { 
                   icon: '🎯', 
                   label: 'Uptime', 
                   value: '99.9%',
-                  color: '#10b981',
                   bgGradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
                 }
               ].map((stat, idx) => (
                 <div key={idx} style={{
-                  background: 'rgba(255,255,255,0.05)',
+                  background: 'rgba(15, 23, 42, 0.5)',
                   backdropFilter: 'blur(20px)',
                   padding: '28px',
                   borderRadius: '16px',
@@ -182,12 +178,12 @@ export default function App() {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)'
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+                  e.currentTarget.style.background = 'rgba(15, 23, 42, 0.7)'
                   e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
+                  e.currentTarget.style.background = 'rgba(15, 23, 42, 0.5)'
                   e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'
                 }}>
                   {/* Gradient Accent */}
@@ -231,9 +227,9 @@ export default function App() {
           </div>
         </section>
 
-        {/* Analytics Section with Modern Design */}
+        {/* Analytics Section */}
         <section id="analytics" style={{
-          background: '#ffffff',
+          background: 'linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%)',
           padding: '80px 32px',
           position: 'relative'
         }}>
@@ -248,15 +244,16 @@ export default function App() {
             }}>
               <div style={{
                 display: 'inline-block',
-                background: '#ede9fe',
+                background: 'linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%)',
                 padding: '8px 20px',
                 borderRadius: '20px',
-                marginBottom: '16px'
+                marginBottom: '16px',
+                border: '1px solid #c4b5fd'
               }}>
                 <span style={{
                   fontSize: '13px',
                   fontWeight: '700',
-                  color: '#7c3aed',
+                  color: '#6d28d9',
                   letterSpacing: '0.5px'
                 }}>
                   📊 ANALYTICS OVERVIEW
@@ -276,7 +273,7 @@ export default function App() {
               <p style={{
                 margin: '0 auto',
                 fontSize: '16px',
-                color: '#64748b',
+                color: '#475569',
                 maxWidth: '600px',
                 lineHeight: '1.7'
               }}>
@@ -329,15 +326,15 @@ export default function App() {
                   overflow: 'hidden',
                   transition: 'all 0.3s',
                   cursor: 'pointer',
-                  boxShadow: '0 10px 30px -10px rgba(0,0,0,0.2)'
+                  boxShadow: '0 10px 30px -10px rgba(0,0,0,0.3)'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-8px)'
-                  e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0,0,0,0.3)'
+                  e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0,0,0,0.4)'
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.boxShadow = '0 10px 30px -10px rgba(0,0,0,0.2)'
+                  e.currentTarget.style.boxShadow = '0 10px 30px -10px rgba(0,0,0,0.3)'
                 }}>
                   {/* Background Pattern */}
                   <div style={{
@@ -410,7 +407,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* Reports Section with Enhanced Design */}
+        {/* Reports Section */}
         <section id="reports" style={{
           background: '#f8fafc',
           padding: '80px 32px'
@@ -431,10 +428,11 @@ export default function App() {
               <div style={{ flex: 1, minWidth: '300px' }}>
                 <div style={{
                   display: 'inline-block',
-                  background: '#dbeafe',
+                  background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
                   padding: '8px 20px',
                   borderRadius: '20px',
-                  marginBottom: '16px'
+                  marginBottom: '16px',
+                  border: '1px solid #93c5fd'
                 }}>
                   <span style={{
                     fontSize: '13px',
@@ -459,7 +457,7 @@ export default function App() {
                 <p style={{
                   margin: 0,
                   fontSize: '16px',
-                  color: '#64748b',
+                  color: '#475569',
                   lineHeight: '1.6'
                 }}>
                   Filter, search, and export your complete transaction history
@@ -468,10 +466,10 @@ export default function App() {
               
               {/* Quick Stats Badge */}
               <div style={{
-                background: 'white',
+                background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
                 padding: '24px 28px',
                 borderRadius: '16px',
-                border: '1px solid #e2e8f0',
+                border: '1px solid #cbd5e1',
                 boxShadow: '0 4px 12px rgba(15, 23, 42, 0.08)'
               }}>
                 <div style={{ 
@@ -504,11 +502,11 @@ export default function App() {
 
             {/* Search Bar */}
             <div style={{
-              background: 'white',
+              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
               borderRadius: '16px',
               padding: '32px',
-              boxShadow: '0 1px 3px rgba(15, 23, 42, 0.08)',
-              border: '1px solid #e2e8f0',
+              boxShadow: '0 2px 8px rgba(15, 23, 42, 0.08)',
+              border: '1px solid #cbd5e1',
               marginBottom: '24px'
             }}>
               <SearchBar />
@@ -528,11 +526,11 @@ export default function App() {
               {/* Table Area */}
               <section>
                 <div style={{
-                  background: 'white',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
                   borderRadius: '16px',
                   padding: '32px',
-                  boxShadow: '0 1px 3px rgba(15, 23, 42, 0.08)',
-                  border: '1px solid #e2e8f0'
+                  boxShadow: '0 2px 8px rgba(15, 23, 42, 0.08)',
+                  border: '1px solid #cbd5e1'
                 }}>
                   <Sorting />
                   <SalesTable />

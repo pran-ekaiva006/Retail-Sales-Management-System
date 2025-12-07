@@ -15,29 +15,29 @@ export default function StatsCards() {
       icon: '🛒',
       label: 'Total Sales',
       value: totalSales.toLocaleString(),
-      color: '#667eea',
-      bgColor: '#eef2ff'
+      gradient: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+      shadowColor: 'rgba(99, 102, 241, 0.3)'
     },
     {
       icon: '💰',
       label: 'Total Revenue',
       value: `₹${totalRevenue.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`,
-      color: '#10b981',
-      bgColor: '#d1fae5'
+      gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      shadowColor: 'rgba(16, 185, 129, 0.3)'
     },
     {
       icon: '📊',
       label: 'Avg Order Value',
       value: `₹${avgOrderValue.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`,
-      color: '#f59e0b',
-      bgColor: '#fef3c7'
+      gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+      shadowColor: 'rgba(245, 158, 11, 0.3)'
     },
     {
       icon: '📦',
       label: 'Total Items',
       value: totalQuantity.toLocaleString(),
-      color: '#ec4899',
-      bgColor: '#fce7f3'
+      gradient: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
+      shadowColor: 'rgba(236, 72, 153, 0.3)'
     }
   ]
 
@@ -50,54 +50,62 @@ export default function StatsCards() {
     }}>
       {stats.map((stat, idx) => (
         <div key={idx} style={{
-          background: 'white',
-          padding: '24px',
+          background: stat.gradient,
+          padding: '28px',
           borderRadius: '16px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-          border: '1px solid #f3f4f6',
+          boxShadow: `0 4px 20px ${stat.shadowColor}`,
+          border: '1px solid rgba(255, 255, 255, 0.2)',
           transition: 'all 0.3s',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          color: 'white',
+          position: 'relative',
+          overflow: 'hidden'
         }}
         onMouseOver={(e) => {
-          e.currentTarget.style.transform = 'translateY(-4px)'
-          e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)'
+          e.currentTarget.style.transform = 'translateY(-8px)'
+          e.currentTarget.style.boxShadow = `0 12px 32px ${stat.shadowColor}`
         }}
         onMouseOut={(e) => {
           e.currentTarget.style.transform = 'translateY(0)'
-          e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)'
+          e.currentTarget.style.boxShadow = `0 4px 20px ${stat.shadowColor}`
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          {/* Background decoration */}
+          <div style={{
+            position: 'absolute',
+            top: '-50%',
+            right: '-50%',
+            width: '200%',
+            height: '200%',
+            background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
+            pointerEvents: 'none'
+          }} />
+          
+          <div style={{ position: 'relative', zIndex: 1 }}>
             <div style={{
-              width: '56px',
-              height: '56px',
-              background: stat.bgColor,
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '28px'
+              fontSize: '40px',
+              marginBottom: '16px',
+              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
             }}>
               {stat.icon}
             </div>
-            <div style={{ flex: 1 }}>
-              <p style={{
-                margin: 0,
-                fontSize: '13px',
-                color: '#6b7280',
-                fontWeight: '500',
-                marginBottom: '4px'
-              }}>
-                {stat.label}
-              </p>
-              <p style={{
-                margin: 0,
-                fontSize: '24px',
-                fontWeight: '700',
-                color: stat.color
-              }}>
-                {stat.value}
-              </p>
-            </div>
+            <p style={{
+              margin: '0 0 8px 0',
+              fontSize: '13px',
+              color: 'rgba(255,255,255,0.9)',
+              fontWeight: '600',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>
+              {stat.label}
+            </p>
+            <p style={{
+              margin: 0,
+              fontSize: '28px',
+              fontWeight: '800',
+              letterSpacing: '-0.5px'
+            }}>
+              {stat.value}
+            </p>
           </div>
         </div>
       ))}
