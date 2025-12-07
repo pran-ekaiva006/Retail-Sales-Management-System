@@ -9,6 +9,33 @@ import Pagination from './components/Pagination.jsx'
 import Footer from './components/Footer.jsx'
 
 export default function App() {
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768)
+  const [showFilters, setShowFilters] = React.useState(false)
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768
+      setIsMobile(mobile)
+      if (!mobile) setShowFilters(false)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Close filters when clicking outside
+  React.useEffect(() => {
+    if (!showFilters) return
+    
+    const handleClickOutside = (e) => {
+      if (e.target.closest('.filters-sidebar')) return
+      if (e.target.closest('.filter-toggle-btn')) return
+      setShowFilters(false)
+    }
+    
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [showFilters])
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -21,10 +48,10 @@ export default function App() {
 
       {/* Main Content */}
       <main style={{ flex: 1 }}>
-        {/* Hero Dashboard Section - Dark Navy with Blue Gradient */}
+        {/* Hero Dashboard Section */}
         <section id="dashboard" style={{
           background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
-          padding: '80px 32px',
+          padding: isMobile ? '40px 20px' : '80px 32px',
           position: 'relative',
           overflow: 'hidden'
         }}>
@@ -37,7 +64,7 @@ export default function App() {
             bottom: 0,
             opacity: 0.05,
             backgroundImage: 'radial-gradient(circle at 20% 50%, #3b82f6 2px, transparent 2px), radial-gradient(circle at 80% 80%, #8b5cf6 2px, transparent 2px)',
-            backgroundSize: '60px 60px'
+            backgroundSize: isMobile ? '30px 30px' : '60px 60px'
           }} />
 
           {/* Decorative Gradient Orbs */}
@@ -45,11 +72,12 @@ export default function App() {
             position: 'absolute',
             top: '-20%',
             right: '-10%',
-            width: '700px',
-            height: '700px',
+            width: isMobile ? '300px' : '700px',
+            height: isMobile ? '300px' : '700px',
             background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
             borderRadius: '50%',
-            filter: 'blur(100px)'
+            filter: 'blur(80px)',
+            pointerEvents: 'none'
           }} />
 
           <div style={{
@@ -61,29 +89,29 @@ export default function App() {
             {/* Hero Content */}
             <div style={{
               textAlign: 'center',
-              marginBottom: '60px'
+              marginBottom: isMobile ? '32px' : '60px'
             }}>
               <div style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '12px',
+                gap: isMobile ? '8px' : '12px',
                 background: 'rgba(16, 185, 129, 0.15)',
                 backdropFilter: 'blur(10px)',
-                padding: '10px 24px',
+                padding: isMobile ? '6px 12px' : '10px 24px',
                 borderRadius: '30px',
                 border: '1px solid rgba(16, 185, 129, 0.3)',
-                marginBottom: '24px'
+                marginBottom: isMobile ? '12px' : '24px'
               }}>
                 <div style={{
-                  width: '8px',
-                  height: '8px',
+                  width: isMobile ? '6px' : '8px',
+                  height: isMobile ? '6px' : '8px',
                   background: '#10b981',
                   borderRadius: '50%',
                   boxShadow: '0 0 12px #10b981',
                   animation: 'pulse 2s infinite'
                 }} />
                 <span style={{
-                  fontSize: '12px',
+                  fontSize: isMobile ? '9px' : '12px',
                   color: '#10b981',
                   fontWeight: '700',
                   letterSpacing: '1.5px',
@@ -94,11 +122,11 @@ export default function App() {
               </div>
 
               <h1 style={{
-                margin: '0 0 20px 0',
+                margin: '0 0 16px 0',
                 color: 'white',
-                fontSize: '56px',
+                fontSize: isMobile ? '28px' : '56px',
                 fontWeight: '800',
-                letterSpacing: '-2px',
+                letterSpacing: '-1px',
                 lineHeight: '1.1'
               }}>
                 Sales Performance
@@ -117,84 +145,55 @@ export default function App() {
                 margin: '0 auto',
                 maxWidth: '600px',
                 color: 'rgba(255,255,255,0.6)',
-                fontSize: '18px',
+                fontSize: isMobile ? '13px' : '18px',
                 lineHeight: '1.6'
               }}>
-                Monitor your business metrics, analyze trends, and make data-driven decisions with our comprehensive analytics platform
+                Monitor your business metrics, analyze trends, and make data-driven decisions
               </p>
             </div>
 
             {/* Enhanced Stats Grid */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '20px'
+              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+              gap: isMobile ? '10px' : '20px'
             }}>
               {[
-                { 
-                  icon: '📈', 
-                  label: 'Live Tracking', 
-                  value: 'Active',
-                  borderColor: '#3b82f6'
-                },
-                { 
-                  icon: '🔄', 
-                  label: 'Auto-Sync', 
-                  value: 'Enabled',
-                  borderColor: '#8b5cf6'
-                },
-                { 
-                  icon: '⚡', 
-                  label: 'Response Time', 
-                  value: '<200ms',
-                  borderColor: '#f59e0b'
-                },
-                { 
-                  icon: '🎯', 
-                  label: 'Uptime', 
-                  value: '99.9%',
-                  borderColor: '#10b981'
-                }
+                { icon: '📈', label: 'Live Tracking', value: 'Active', borderColor: '#3b82f6' },
+                { icon: '🔄', label: 'Auto-Sync', value: 'Enabled', borderColor: '#8b5cf6' },
+                { icon: '⚡', label: 'Response', value: '<200ms', borderColor: '#f59e0b' },
+                { icon: '🎯', label: 'Uptime', value: '99.9%', borderColor: '#10b981' }
               ].map((stat, idx) => (
                 <div key={idx} style={{
                   background: 'rgba(255, 255, 255, 0.04)',
                   backdropFilter: 'blur(20px)',
-                  padding: '28px',
-                  borderRadius: '16px',
+                  padding: isMobile ? '14px 10px' : '28px',
+                  borderRadius: isMobile ? '10px' : '16px',
                   borderTop: `3px solid ${stat.borderColor}`,
                   border: '1px solid rgba(255,255,255,0.08)',
                   transition: 'all 0.3s',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)'
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'
-                  e.currentTarget.style.boxShadow = `0 12px 30px ${stat.borderColor}40`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)'
-                  e.currentTarget.style.boxShadow = 'none'
+                  cursor: 'pointer',
+                  textAlign: 'center'
                 }}>
                   <div style={{ 
-                    fontSize: '36px', 
-                    marginBottom: '12px',
+                    fontSize: isMobile ? '20px' : '36px', 
+                    marginBottom: isMobile ? '6px' : '12px',
                     filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
                   }}>
                     {stat.icon}
                   </div>
                   <div style={{ 
-                    fontSize: '11px', 
+                    fontSize: isMobile ? '8px' : '11px', 
                     color: 'rgba(255,255,255,0.5)', 
-                    marginBottom: '8px',
+                    marginBottom: isMobile ? '3px' : '8px',
                     fontWeight: '600',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px'
+                    letterSpacing: '0.5px'
                   }}>
                     {stat.label}
                   </div>
                   <div style={{ 
-                    fontSize: '24px', 
+                    fontSize: isMobile ? '15px' : '24px', 
                     color: 'white', 
                     fontWeight: '700',
                     letterSpacing: '-0.5px'
@@ -207,47 +206,32 @@ export default function App() {
           </div>
         </section>
 
-        {/* Analytics Section - Darker with Purple Accent */}
+        {/* Analytics Section */}
         <section id="analytics" style={{
           background: 'linear-gradient(135deg, #1a1f2e 0%, #252b3a 100%)',
-          padding: '80px 32px',
+          padding: isMobile ? '40px 20px' : '80px 32px',
           position: 'relative',
           borderTop: '1px solid rgba(139, 92, 246, 0.2)'
         }}>
-          {/* Subtle background gradient */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '800px',
-            height: '400px',
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-            pointerEvents: 'none'
-          }} />
-
           <div style={{
             maxWidth: '1400px',
-            margin: '0 auto',
-            position: 'relative',
-            zIndex: 1
+            margin: '0 auto'
           }}>
             {/* Section Header */}
             <div style={{
-              marginBottom: '60px',
+              marginBottom: isMobile ? '28px' : '60px',
               textAlign: 'center'
             }}>
               <div style={{
                 display: 'inline-block',
                 background: 'rgba(139, 92, 246, 0.15)',
-                padding: '8px 20px',
+                padding: isMobile ? '5px 12px' : '8px 20px',
                 borderRadius: '20px',
-                marginBottom: '16px',
+                marginBottom: isMobile ? '10px' : '16px',
                 border: '1px solid rgba(139, 92, 246, 0.3)'
               }}>
                 <span style={{
-                  fontSize: '12px',
+                  fontSize: isMobile ? '9px' : '12px',
                   fontWeight: '700',
                   color: '#a78bfa',
                   letterSpacing: '1.5px',
@@ -258,8 +242,8 @@ export default function App() {
               </div>
               
               <h2 style={{
-                margin: '0 0 16px 0',
-                fontSize: '42px',
+                margin: '0 0 12px 0',
+                fontSize: isMobile ? '24px' : '42px',
                 fontWeight: '800',
                 color: 'white',
                 letterSpacing: '-1px'
@@ -269,12 +253,12 @@ export default function App() {
               
               <p style={{
                 margin: '0 auto',
-                fontSize: '16px',
+                fontSize: isMobile ? '13px' : '16px',
                 color: 'rgba(255,255,255,0.5)',
                 maxWidth: '600px',
                 lineHeight: '1.7'
               }}>
-                Track your most important business indicators and gain actionable insights to drive growth
+                Track your most important business indicators
               </p>
             </div>
 
@@ -283,90 +267,67 @@ export default function App() {
 
             {/* Feature Cards Grid */}
             <div style={{
-              marginTop: '60px',
+              marginTop: isMobile ? '32px' : '60px',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '24px'
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: isMobile ? '14px' : '24px'
             }}>
               {[
                 {
                   gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
                   icon: '🎯',
                   title: 'Smart Targeting',
-                  desc: 'AI-powered customer segmentation and personalized marketing campaigns',
+                  desc: 'AI-powered customer segmentation',
                   metric: '+45%',
-                  metricLabel: 'Conversion Rate'
+                  metricLabel: 'Conversion'
                 },
                 {
                   gradient: 'linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)',
                   icon: '📈',
                   title: 'Growth Analytics',
-                  desc: 'Real-time revenue tracking and predictive sales forecasting',
+                  desc: 'Real-time revenue tracking',
                   metric: '+82%',
                   metricLabel: 'YoY Growth'
                 },
                 {
                   gradient: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)',
                   icon: '💡',
-                  title: 'Business Intelligence',
-                  desc: 'Advanced reporting with custom dashboards and automated insights',
+                  title: 'Intelligence',
+                  desc: 'Advanced reporting & insights',
                   metric: '2.5hrs',
-                  metricLabel: 'Time Saved'
+                  metricLabel: 'Saved'
                 }
               ].map((feature, idx) => (
                 <div key={idx} style={{
                   background: feature.gradient,
-                  padding: '40px',
-                  borderRadius: '20px',
+                  padding: isMobile ? '20px 16px' : '40px',
+                  borderRadius: isMobile ? '14px' : '20px',
                   color: 'white',
                   position: 'relative',
                   overflow: 'hidden',
-                  transition: 'all 0.3s',
-                  cursor: 'pointer',
                   boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)'
-                  e.currentTarget.style.boxShadow = '0 20px 50px rgba(0,0,0,0.4)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.3)'
                 }}>
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    width: '200px',
-                    height: '200px',
-                    background: 'rgba(255,255,255,0.08)',
-                    borderRadius: '50%',
-                    transform: 'translate(50%, -50%)'
-                  }} />
-
                   <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ 
-                      fontSize: '48px', 
-                      marginBottom: '20px',
-                      filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))'
+                      fontSize: isMobile ? '32px' : '48px', 
+                      marginBottom: isMobile ? '12px' : '20px'
                     }}>
                       {feature.icon}
                     </div>
                     
                     <h3 style={{ 
-                      margin: '0 0 12px 0', 
-                      fontSize: '24px', 
-                      fontWeight: '700',
-                      letterSpacing: '-0.5px'
+                      margin: '0 0 10px 0', 
+                      fontSize: isMobile ? '18px' : '24px', 
+                      fontWeight: '700'
                     }}>
                       {feature.title}
                     </h3>
                     
                     <p style={{ 
-                      margin: '0 0 24px 0', 
-                      fontSize: '15px', 
+                      margin: '0 0 16px 0', 
+                      fontSize: isMobile ? '12px' : '15px', 
                       opacity: 0.95,
-                      lineHeight: '1.6'
+                      lineHeight: '1.5'
                     }}>
                       {feature.desc}
                     </p>
@@ -376,19 +337,18 @@ export default function App() {
                       flexDirection: 'column',
                       background: 'rgba(255,255,255,0.2)',
                       backdropFilter: 'blur(10px)',
-                      padding: '12px 20px',
-                      borderRadius: '12px',
+                      padding: isMobile ? '8px 14px' : '12px 20px',
+                      borderRadius: '10px',
                       border: '1px solid rgba(255,255,255,0.3)'
                     }}>
                       <span style={{ 
-                        fontSize: '24px', 
-                        fontWeight: '800',
-                        marginBottom: '4px'
+                        fontSize: isMobile ? '18px' : '24px', 
+                        fontWeight: '800'
                       }}>
                         {feature.metric}
                       </span>
                       <span style={{ 
-                        fontSize: '12px', 
+                        fontSize: isMobile ? '9px' : '12px', 
                         opacity: 0.9,
                         fontWeight: '600'
                       }}>
@@ -402,10 +362,10 @@ export default function App() {
           </div>
         </section>
 
-        {/* Reports Section - Darkest with Blue Accent */}
+        {/* Reports Section */}
         <section id="reports" style={{
           background: 'linear-gradient(135deg, #0a0e1a 0%, #151922 100%)',
-          padding: '80px 32px',
+          padding: isMobile ? '40px 20px' : '80px 32px',
           borderTop: '1px solid rgba(59, 130, 246, 0.2)'
         }}>
           <div style={{
@@ -414,98 +374,55 @@ export default function App() {
           }}>
             {/* Section Header */}
             <div style={{
-              marginBottom: '48px',
-              display: 'flex',
-              alignItems: 'flex-start',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '24px'
+              marginBottom: isMobile ? '24px' : '48px'
             }}>
-              <div style={{ flex: 1, minWidth: '300px' }}>
-                <div style={{
-                  display: 'inline-block',
-                  background: 'rgba(59, 130, 246, 0.15)',
-                  padding: '8px 20px',
-                  borderRadius: '20px',
-                  marginBottom: '16px',
-                  border: '1px solid rgba(59, 130, 246, 0.3)'
-                }}>
-                  <span style={{
-                    fontSize: '12px',
-                    fontWeight: '700',
-                    color: '#60a5fa',
-                    letterSpacing: '1.5px',
-                    textTransform: 'uppercase'
-                  }}>
-                    📄 Detailed Reports
-                  </span>
-                </div>
-
-                <h2 style={{
-                  margin: '0 0 12px 0',
-                  fontSize: '42px',
-                  fontWeight: '800',
-                  color: 'white',
-                  letterSpacing: '-1px'
-                }}>
-                  Sales Data
-                </h2>
-                
-                <p style={{
-                  margin: 0,
-                  fontSize: '16px',
-                  color: 'rgba(255,255,255,0.5)',
-                  lineHeight: '1.6'
-                }}>
-                  Filter, search, and export your complete transaction history
-                </p>
-              </div>
-              
-              {/* Quick Stats Badge */}
               <div style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                padding: '24px 28px',
-                borderRadius: '16px',
-                border: '1px solid rgba(255,255,255,0.1)',
-                backdropFilter: 'blur(10px)'
+                display: 'inline-block',
+                background: 'rgba(59, 130, 246, 0.15)',
+                padding: isMobile ? '5px 12px' : '8px 20px',
+                borderRadius: '20px',
+                marginBottom: isMobile ? '10px' : '16px',
+                border: '1px solid rgba(59, 130, 246, 0.3)'
               }}>
-                <div style={{ 
-                  fontSize: '32px', 
-                  marginBottom: '8px',
-                  textAlign: 'center'
-                }}>
-                  📊
-                </div>
-                <div style={{ 
-                  fontSize: '11px', 
-                  color: 'rgba(255,255,255,0.5)', 
-                  fontWeight: '600',
-                  marginBottom: '4px',
-                  textAlign: 'center',
-                  letterSpacing: '1px',
+                <span style={{
+                  fontSize: isMobile ? '9px' : '12px',
+                  fontWeight: '700',
+                  color: '#60a5fa',
+                  letterSpacing: '1.5px',
                   textTransform: 'uppercase'
                 }}>
-                  Total Records
-                </div>
-                <div style={{ 
-                  fontSize: '28px', 
-                  color: 'white', 
-                  fontWeight: '800',
-                  textAlign: 'center'
-                }}>
-                  Loading...
-                </div>
+                  📄 Detailed Reports
+                </span>
               </div>
+
+              <h2 style={{
+                margin: '0 0 10px 0',
+                fontSize: isMobile ? '24px' : '42px',
+                fontWeight: '800',
+                color: 'white',
+                letterSpacing: '-1px'
+              }}>
+                Sales Data
+              </h2>
+              
+              <p style={{
+                margin: 0,
+                fontSize: isMobile ? '13px' : '16px',
+                color: 'rgba(255,255,255,0.5)',
+                lineHeight: '1.6'
+              }}>
+                Filter, search, and export transaction history
+              </p>
             </div>
 
             {/* Search Bar */}
             <div style={{
               background: 'rgba(255, 255, 255, 0.04)',
-              borderRadius: '16px',
-              padding: '32px',
+              borderRadius: isMobile ? '12px' : '16px',
+              padding: isMobile ? '16px' : '32px',
               border: '1px solid rgba(255,255,255,0.1)',
               backdropFilter: 'blur(10px)',
-              marginBottom: '24px'
+              marginBottom: isMobile ? '16px' : '24px'
             }}>
               <SearchBar />
             </div>
@@ -513,22 +430,109 @@ export default function App() {
             {/* Main Content Grid */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: '340px 1fr',
-              gap: '24px'
+              gridTemplateColumns: isMobile ? '1fr' : '320px 1fr',
+              gap: isMobile ? '16px' : '24px'
             }}>
+              {/* Mobile Filter Toggle Button */}
+              {isMobile && (
+                <button
+                  className="filter-toggle-btn"
+                  onClick={() => setShowFilters(!showFilters)}
+                  style={{
+                    width: '100%',
+                    padding: '14px',
+                    background: showFilters 
+                      ? 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)'
+                      : 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '12px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '10px',
+                    transition: 'all 0.3s'
+                  }}
+                >
+                  <span style={{ fontSize: '18px' }}>
+                    {showFilters ? '✕' : '🎛️'}
+                  </span>
+                  <span>
+                    {showFilters ? 'Close Filters' : 'Show Filters'}
+                  </span>
+                </button>
+              )}
+
               {/* Sidebar Filters */}
-              <aside>
-                <Filters />
-              </aside>
+              {(!isMobile || showFilters) && (
+                <aside 
+                  className="filters-sidebar"
+                  style={{
+                    position: isMobile ? 'fixed' : 'static',
+                    top: isMobile ? '0' : 'auto',
+                    left: isMobile ? '0' : 'auto',
+                    right: isMobile ? '0' : 'auto',
+                    bottom: isMobile ? '0' : 'auto',
+                    zIndex: isMobile ? '999' : 'auto',
+                    background: isMobile ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'transparent',
+                    overflowY: isMobile ? 'auto' : 'visible',
+                    padding: isMobile ? '24px 20px' : '0',
+                    boxShadow: isMobile ? '0 0 50px rgba(0,0,0,0.7)' : 'none'
+                  }}>
+                  {isMobile && (
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '20px',
+                      paddingBottom: '16px',
+                      borderBottom: '1px solid rgba(255,255,255,0.1)'
+                    }}>
+                      <h3 style={{
+                        margin: 0,
+                        fontSize: '18px',
+                        fontWeight: '700',
+                        color: 'white'
+                      }}>
+                        🎛️ Filters
+                      </h3>
+                      <button
+                        onClick={() => setShowFilters(false)}
+                        style={{
+                          background: 'rgba(255,255,255,0.1)',
+                          border: 'none',
+                          color: 'white',
+                          fontSize: '24px',
+                          width: '36px',
+                          height: '36px',
+                          borderRadius: '50%',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  )}
+                  <Filters />
+                </aside>
+              )}
 
               {/* Table Area */}
               <section>
                 <div style={{
                   background: 'rgba(255, 255, 255, 0.04)',
-                  borderRadius: '16px',
-                  padding: '32px',
+                  borderRadius: isMobile ? '12px' : '16px',
+                  padding: isMobile ? '14px' : '32px',
                   border: '1px solid rgba(255,255,255,0.1)',
-                  backdropFilter: 'blur(10px)'
+                  backdropFilter: 'blur(10px)',
+                  overflowX: 'auto'
                 }}>
                   <Sorting />
                   <SalesTable />
@@ -554,6 +558,41 @@ export default function App() {
             opacity: 0.7;
             transform: scale(1.1);
           }
+        }
+        
+        /* Mobile Table Styles */
+        @media (max-width: 768px) {
+          table {
+            font-size: 11px;
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+          }
+          
+          table th,
+          table td {
+            padding: 8px 6px !important;
+            min-width: 80px;
+          }
+          
+          table th:first-child,
+          table td:first-child {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 1;
+          }
+        }
+        
+        /* Smooth scrolling for mobile */
+        html {
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Prevent mobile zoom on input focus */
+        input, select, textarea {
+          font-size: 16px !important;
         }
       `}</style>
     </div>
