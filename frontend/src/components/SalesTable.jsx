@@ -6,15 +6,50 @@ export default function SalesTable(){
   
   if (loading) return (
     <div style={{textAlign: 'center', padding: '60px', color: '#9ca3af'}}>
-      <div style={{fontSize: '28px', marginBottom: '12px'}}>⏳</div>
-      <p style={{fontSize: '14px', fontWeight: '500'}}>Loading sales data...</p>
+      <div style={{
+        fontSize: '48px', 
+        marginBottom: '16px',
+        animation: 'spin 2s linear infinite'
+      }}>⏳</div>
+      <p style={{fontSize: '16px', fontWeight: '600', marginBottom: '8px'}}>
+        Loading sales data...
+      </p>
+      <p style={{fontSize: '13px', color: '#9ca3af'}}>
+        This may take up to 60 seconds on first load (free tier)
+      </p>
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   )
   
   if (error) return (
     <div style={{textAlign: 'center', padding: '60px', color: '#dc2626'}}>
-      <div style={{fontSize: '28px', marginBottom: '12px'}}>⚠️</div>
-      <p style={{fontSize: '14px', fontWeight: '500'}}>{error}</p>
+      <div style={{fontSize: '48px', marginBottom: '16px'}}>⚠️</div>
+      <p style={{fontSize: '16px', fontWeight: '600', marginBottom: '8px'}}>
+        {error}
+      </p>
+      <p style={{fontSize: '13px', color: '#9ca3af', marginBottom: '16px'}}>
+        The server may be waking up from sleep. Please wait a moment and try again.
+      </p>
+      <button
+        onClick={() => window.location.reload()}
+        style={{
+          padding: '10px 20px',
+          background: '#3b82f6',
+          color: 'white',
+          border: 'none',
+          borderRadius: '6px',
+          cursor: 'pointer',
+          fontSize: '14px',
+          fontWeight: '600'
+        }}
+      >
+        Retry
+      </button>
     </div>
   )
   
@@ -42,7 +77,7 @@ export default function SalesTable(){
             <th style={{padding: '12px', textAlign: 'left', fontWeight: '500', color: '#6b7280', fontSize: '12px'}}>Transaction ID</th>
             <th style={{padding: '12px', textAlign: 'left', fontWeight: '500', color: '#6b7280', fontSize: '12px'}}>Date</th>
             <th style={{padding: '12px', textAlign: 'left', fontWeight: '500', color: '#6b7280', fontSize: '12px'}}>Customer ID</th>
-            <th style={{padding: '12px', textAlign: 'left', fontWeight: '500', color: '#6b7280', fontSize: '12px'}}>Customer name</th>
+            <th style={{padding: '12px', textAlign: 'left', fontWeight: '500', color: '#6b7280', fontSize: '12px'}}>Customer Name</th>
             <th style={{padding: '12px', textAlign: 'left', fontWeight: '500', color: '#6b7280', fontSize: '12px'}}>Phone Number</th>
             <th style={{padding: '12px', textAlign: 'left', fontWeight: '500', color: '#6b7280', fontSize: '12px'}}>Gender</th>
             <th style={{padding: '12px', textAlign: 'left', fontWeight: '500', color: '#6b7280', fontSize: '12px'}}>Age</th>
