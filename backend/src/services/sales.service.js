@@ -88,7 +88,7 @@ export function querySales(db, filters) {
     throw error;
   }
 
-  // Pagination - 10 items per page as per requirements
+  // Pagination - 10 items per page
   const limit = 10;
   const page = filters.page || 1;
   const offset = (page - 1) * limit;

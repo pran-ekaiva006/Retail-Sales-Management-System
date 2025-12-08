@@ -40,7 +40,7 @@ export default function App() {
           <SearchBar />
         </div>
 
-        {/* Filters + Sorting Row - HORIZONTAL */}
+        {/* Filters + Sorting Row */}
         <div style={{
           padding: '16px 40px',
           background: '#ffffff',
@@ -51,10 +51,7 @@ export default function App() {
           flexWrap: 'wrap'
         }}>
           <Filters />
-          
-          {/* Spacer to push sorting to the right */}
           <div style={{ flex: 1 }} />
-          
           <Sorting />
         </div>
 
@@ -64,10 +61,8 @@ export default function App() {
           padding: '24px 40px',
           background: '#fafafa'
         }}>
-          {/* Stats Cards */}
           <StatsCards />
 
-          {/* Data Table */}
           <div style={{
             background: '#ffffff',
             borderRadius: '8px',
