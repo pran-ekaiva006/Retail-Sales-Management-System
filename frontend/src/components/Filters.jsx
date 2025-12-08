@@ -1,242 +1,478 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useStore from '../utils/store.js'
 
-const FilterSection = ({title, icon, children}) => (
-  <div style={{marginBottom: '20px'}}>
-    <div style={{
-      fontSize: '12px',
-      fontWeight: '600',
-      color: 'rgba(255,255,255,0.7)',
-      marginBottom: '8px',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '6px',
-      textTransform: 'uppercase',
-      letterSpacing: '0.5px'
-    }}>
-      <span>{icon}</span>
-      {title}
-    </div>
-    {children}
-  </div>
-)
+const FilterDropdown = ({ label, options, value, onChange, isMulti = false }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedValues, setSelectedValues] = useState(value ? value.split(',') : [])
 
-const inputStyle = {
-  width: '100%',
-  padding: '12px',
-  fontSize: '14px',
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: '8px',
-  outline: 'none',
-  transition: 'all 0.2s',
-  boxSizing: 'border-box',
-  background: 'rgba(255,255,255,0.03)',
-  color: 'white'
+  const handleSelect = (option) => {
+    if (isMulti) {
+      let newValues
+      if (selectedValues.includes(option)) {
+        newValues = selectedValues.filter(v => v !== option)
+      } else {
+        newValues = [...selectedValues, option]
+      }
+      setSelectedValues(newValues)
+      onChange(newValues.join(','))
+    } else {
+      setSelectedValues([option])
+      onChange(option)
+      setIsOpen(false)
+    }
+  }
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          padding: '8px 14px',
+          border: '1px solid #d1d5db',
+          borderRadius: '6px',
+          background: '#ffffff',
+          cursor: 'pointer',
+          fontSize: '13px',
+          color: selectedValues.length > 0 ? '#374151' : '#6b7280',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          whiteSpace: 'nowrap',
+          transition: 'all 0.15s',
+          fontWeight: selectedValues.length > 0 ? '600' : '400'
+        }}
+      >
+        <span>
+          {selectedValues.length > 0 
+            ? `${label} (${selectedValues.length})` 
+            : label}
+        </span>
+        <span style={{ fontSize: '9px', color: '#9ca3af' }}>▼</span>
+      </button>
+
+      {isOpen && (
+        <>
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 999
+            }}
+            onClick={() => setIsOpen(false)}
+          />
+          <div style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            marginTop: '4px',
+            background: '#ffffff',
+            border: '1px solid #d1d5db',
+            borderRadius: '6px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            minWidth: '200px',
+            maxHeight: '300px',
+            overflowY: 'auto',
+            zIndex: 1000
+          }}>
+            {options.map((option) => (
+              <div
+                key={option}
+                onClick={() => handleSelect(option)}
+                style={{
+                  padding: '10px 14px',
+                  cursor: 'pointer',
+                  fontSize: '13px',
+                  color: '#374151',
+                  background: selectedValues.includes(option) ? '#f3f4f6' : 'transparent',
+                  fontWeight: selectedValues.includes(option) ? '600' : '400',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'background 0.15s'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = '#f9fafb'
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = selectedValues.includes(option) ? '#f3f4f6' : 'transparent'
+                }}
+              >
+                {isMulti && (
+                  <input
+                    type="checkbox"
+                    checked={selectedValues.includes(option)}
+                    onChange={() => {}}
+                    style={{ marginRight: '4px' }}
+                  />
+                )}
+                {option}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+const DateRangeFilter = () => {
+  const { params, setParam } = useStore()
+  const [isOpen, setIsOpen] = useState(false)
+  const [startDate, setStartDate] = useState(params.startDate || '')
+  const [endDate, setEndDate] = useState(params.endDate || '')
+
+  const applyDateRange = () => {
+    if (startDate) setParam('startDate', startDate)
+    if (endDate) setParam('endDate', endDate)
+    setIsOpen(false)
+  }
+
+  const hasValue = params.startDate || params.endDate
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          padding: '8px 14px',
+          border: '1px solid #d1d5db',
+          borderRadius: '6px',
+          background: '#ffffff',
+          cursor: 'pointer',
+          fontSize: '13px',
+          color: hasValue ? '#374151' : '#6b7280',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          whiteSpace: 'nowrap',
+          fontWeight: hasValue ? '600' : '400'
+        }}
+      >
+        <span>{hasValue ? 'Date (Selected)' : 'Date'}</span>
+        <span style={{ fontSize: '9px', color: '#9ca3af' }}>▼</span>
+      </button>
+
+      {isOpen && (
+        <>
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 999
+            }}
+            onClick={() => setIsOpen(false)}
+          />
+          <div style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            marginTop: '4px',
+            background: '#ffffff',
+            border: '1px solid #d1d5db',
+            borderRadius: '6px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            padding: '16px',
+            minWidth: '280px',
+            zIndex: 1000
+          }}>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ 
+                display: 'block', 
+                fontSize: '12px', 
+                color: '#6b7280', 
+                marginBottom: '6px',
+                fontWeight: '600'
+              }}>
+                Start Date
+              </label>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '8px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '4px',
+                  fontSize: '13px'
+                }}
+              />
+            </div>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ 
+                display: 'block', 
+                fontSize: '12px', 
+                color: '#6b7280', 
+                marginBottom: '6px',
+                fontWeight: '600'
+              }}>
+                End Date
+              </label>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '8px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '4px',
+                  fontSize: '13px'
+                }}
+              />
+            </div>
+            <button
+              onClick={applyDateRange}
+              style={{
+                width: '100%',
+                padding: '8px',
+                background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                fontSize: '13px',
+                fontWeight: '600',
+                cursor: 'pointer'
+              }}
+            >
+              Apply
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+const AgeRangeFilter = () => {
+  const { params, setParam } = useStore()
+  const [isOpen, setIsOpen] = useState(false)
+  const [ageMin, setAgeMin] = useState(params.ageMin || '')
+  const [ageMax, setAgeMax] = useState(params.ageMax || '')
+
+  const applyAgeRange = () => {
+    if (ageMin) setParam('ageMin', ageMin)
+    if (ageMax) setParam('ageMax', ageMax)
+    setIsOpen(false)
+  }
+
+  const hasValue = params.ageMin || params.ageMax
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          padding: '8px 14px',
+          border: '1px solid #d1d5db',
+          borderRadius: '6px',
+          background: '#ffffff',
+          cursor: 'pointer',
+          fontSize: '13px',
+          color: hasValue ? '#374151' : '#6b7280',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          whiteSpace: 'nowrap',
+          fontWeight: hasValue ? '600' : '400'
+        }}
+      >
+        <span>{hasValue ? `Age (${ageMin || '0'}-${ageMax || '100'})` : 'Age Range'}</span>
+        <span style={{ fontSize: '9px', color: '#9ca3af' }}>▼</span>
+      </button>
+
+      {isOpen && (
+        <>
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 999
+            }}
+            onClick={() => setIsOpen(false)}
+          />
+          <div style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            marginTop: '4px',
+            background: '#ffffff',
+            border: '1px solid #d1d5db',
+            borderRadius: '6px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            padding: '16px',
+            minWidth: '240px',
+            zIndex: 1000
+          }}>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ 
+                display: 'block', 
+                fontSize: '12px', 
+                color: '#6b7280', 
+                marginBottom: '6px',
+                fontWeight: '600'
+              }}>
+                Min Age
+              </label>
+              <input
+                type="number"
+                value={ageMin}
+                onChange={(e) => setAgeMin(e.target.value)}
+                placeholder="18"
+                min="0"
+                max="100"
+                style={{
+                  width: '100%',
+                  padding: '8px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '4px',
+                  fontSize: '13px'
+                }}
+              />
+            </div>
+            <div style={{ marginBottom: '12px' }}>
+              <label style={{ 
+                display: 'block', 
+                fontSize: '12px', 
+                color: '#6b7280', 
+                marginBottom: '6px',
+                fontWeight: '600'
+              }}>
+                Max Age
+              </label>
+              <input
+                type="number"
+                value={ageMax}
+                onChange={(e) => setAgeMax(e.target.value)}
+                placeholder="65"
+                min="0"
+                max="100"
+                style={{
+                  width: '100%',
+                  padding: '8px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '4px',
+                  fontSize: '13px'
+                }}
+              />
+            </div>
+            <button
+              onClick={applyAgeRange}
+              style={{
+                width: '100%',
+                padding: '8px',
+                background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                fontSize: '13px',
+                fontWeight: '600',
+                cursor: 'pointer'
+              }}
+            >
+              Apply
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  )
 }
 
 export default function Filters(){
   const { params, setParam } = useStore()
+
+  const handleReset = () => {
+    window.location.reload()
+  }
   
   return (
-    <aside style={{
-      background: 'rgba(255, 255, 255, 0.03)',
-      padding: '24px',
-      borderRadius: '16px',
-      border: '1px solid rgba(255,255,255,0.1)',
-      backdropFilter: 'blur(10px)'
-    }}>
-      <h3 style={{
-        margin: '0 0 24px 0',
-        fontSize: '16px',
-        fontWeight: '700',
-        color: 'white',
+    <>
+      {/* Refresh Button */}
+      <button style={{
+        width: '36px',
+        height: '36px',
+        border: '1px solid #d1d5db',
+        borderRadius: '6px',
         display: 'flex',
         alignItems: 'center',
-        gap: '8px'
-      }}>
-        🎯 Filters
-      </h3>
-
-      <FilterSection title="Regions" icon="🌍">
-        <input 
-          value={params.regions} 
-          onChange={e=>setParam('regions', e.target.value)} 
-          placeholder="e.g., North, South, East"
-          style={inputStyle}
-          onFocus={(e) => {
-            e.target.style.borderColor = '#3b82f6'
-            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
-          }}
-          onBlur={(e) => {
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-            e.target.style.background = 'rgba(255,255,255,0.03)'
-          }}
-        />
-      </FilterSection>
-
-      <FilterSection title="Gender" icon="👥">
-        <input 
-          value={params.gender} 
-          onChange={e=>setParam('gender', e.target.value)} 
-          placeholder="e.g., Male, Female"
-          style={inputStyle}
-          onFocus={(e) => {
-            e.target.style.borderColor = '#3b82f6'
-            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
-          }}
-          onBlur={(e) => {
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-            e.target.style.background = 'rgba(255,255,255,0.03)'
-          }}
-        />
-      </FilterSection>
-
-      <FilterSection title="Age Range" icon="📅">
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px'}}>
-          <input 
-            type="number" 
-            value={params.ageMin} 
-            onChange={e=>setParam('ageMin', e.target.value)}
-            placeholder="Min"
-            min="0"
-            style={inputStyle}
-            onFocus={(e) => {
-              e.target.style.borderColor = '#3b82f6'
-              e.target.style.background = 'rgba(59, 130, 246, 0.1)'
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-              e.target.style.background = 'rgba(255,255,255,0.03)'
-            }}
-          />
-          <input 
-            type="number" 
-            value={params.ageMax} 
-            onChange={e=>setParam('ageMax', e.target.value)}
-            placeholder="Max"
-            min="0"
-            style={inputStyle}
-            onFocus={(e) => {
-              e.target.style.borderColor = '#3b82f6'
-              e.target.style.background = 'rgba(59, 130, 246, 0.1)'
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-              e.target.style.background = 'rgba(255,255,255,0.03)'
-            }}
-          />
-        </div>
-      </FilterSection>
-
-      <FilterSection title="Categories" icon="📦">
-        <input 
-          value={params.categories} 
-          onChange={e=>setParam('categories', e.target.value)} 
-          placeholder="e.g., Electronics, Fashion"
-          style={inputStyle}
-          onFocus={(e) => {
-            e.target.style.borderColor = '#3b82f6'
-            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
-          }}
-          onBlur={(e) => {
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-            e.target.style.background = 'rgba(255,255,255,0.03)'
-          }}
-        />
-      </FilterSection>
-
-      <FilterSection title="Tags" icon="🏷️">
-        <input 
-          value={params.tags} 
-          onChange={e=>setParam('tags', e.target.value)} 
-          placeholder="e.g., New, Sale"
-          style={inputStyle}
-          onFocus={(e) => {
-            e.target.style.borderColor = '#3b82f6'
-            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
-          }}
-          onBlur={(e) => {
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-            e.target.style.background = 'rgba(255,255,255,0.03)'
-          }}
-        />
-      </FilterSection>
-
-      <FilterSection title="Payment Methods" icon="💳">
-        <input 
-          value={params.paymentMethods} 
-          onChange={e=>setParam('paymentMethods', e.target.value)} 
-          placeholder="e.g., Card, Cash"
-          style={inputStyle}
-          onFocus={(e) => {
-            e.target.style.borderColor = '#3b82f6'
-            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
-          }}
-          onBlur={(e) => {
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-            e.target.style.background = 'rgba(255,255,255,0.03)'
-          }}
-        />
-      </FilterSection>
-
-      <FilterSection title="Date Range" icon="📆">
-        <input 
-          type="date"
-          value={params.startDate} 
-          onChange={e=>setParam('startDate', e.target.value)}
-          style={{...inputStyle, marginBottom: '8px', colorScheme: 'dark'}}
-          onFocus={(e) => {
-            e.target.style.borderColor = '#3b82f6'
-            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
-          }}
-          onBlur={(e) => {
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-            e.target.style.background = 'rgba(255,255,255,0.03)'
-          }}
-        />
-        <input 
-          type="date"
-          value={params.endDate} 
-          onChange={e=>setParam('endDate', e.target.value)}
-          style={{...inputStyle, colorScheme: 'dark'}}
-          onFocus={(e) => {
-            e.target.style.borderColor = '#3b82f6'
-            e.target.style.background = 'rgba(59, 130, 246, 0.1)'
-          }}
-          onBlur={(e) => {
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-            e.target.style.background = 'rgba(255,255,255,0.03)'
-          }}
-        />
-      </FilterSection>
-
-      <button
-        onClick={() => window.location.reload()}
-        style={{
-          width: '100%',
-          padding: '12px',
-          background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          fontSize: '14px',
-          fontWeight: '600',
-          cursor: 'pointer',
-          transition: 'all 0.2s',
-          boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
-          marginTop: '8px'
-        }}
-        onMouseOver={e => {
-          e.target.style.transform = 'translateY(-2px)'
-          e.target.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.4)'
-        }}
-        onMouseOut={e => {
-          e.target.style.transform = 'translateY(0)'
-          e.target.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)'
-        }}
+        justifyContent: 'center',
+        cursor: 'pointer',
+        background: '#ffffff',
+        transition: 'all 0.15s',
+        padding: 0,
+        flexShrink: 0
+      }}
+      onMouseOver={(e) => {
+        e.currentTarget.style.borderColor = '#9ca3af'
+        e.currentTarget.style.backgroundColor = '#f3f4f6'
+      }}
+      onMouseOut={(e) => {
+        e.currentTarget.style.borderColor = '#d1d5db'
+        e.currentTarget.style.backgroundColor = '#ffffff'
+      }}
+      onClick={handleReset}
+      title="Refresh"
       >
-        🔄 Reset Filters
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
       </button>
-    </aside>
+
+      {/* Filter Dropdowns */}
+      <FilterDropdown 
+        label="Customer Region" 
+        options={['North', 'South', 'East', 'West']}
+        value={params.regions}
+        onChange={(value) => setParam('regions', value)}
+        isMulti={true}
+      />
+      
+      <FilterDropdown 
+        label="Gender" 
+        options={['Male', 'Female']}
+        value={params.gender}
+        onChange={(value) => setParam('gender', value)}
+        isMulti={true}
+      />
+      
+      <AgeRangeFilter />
+      
+      <FilterDropdown 
+        label="Product Category" 
+        options={['Electronics', 'Fashion', 'Beauty', 'Clothing', 'Home']}
+        value={params.categories}
+        onChange={(value) => setParam('categories', value)}
+        isMulti={true}
+      />
+      
+      <FilterDropdown 
+        label="Tags" 
+        options={['New', 'Sale', 'Featured', 'Trending']}
+        value={params.tags}
+        onChange={(value) => setParam('tags', value)}
+        isMulti={true}
+      />
+      
+      <FilterDropdown 
+        label="Payment Method" 
+        options={['Card', 'Cash', 'UPI', 'Net Banking']}
+        value={params.paymentMethods}
+        onChange={(value) => setParam('paymentMethods', value)}
+        isMulti={true}
+      />
+      
+      <DateRangeFilter />
+    </>
   )
 }

@@ -4,7 +4,7 @@ export function querySales(db, filters) {
   let sql = 'SELECT * FROM sales WHERE 1=1';
   const params = [];
 
-  // Search filter - FIX: Use single quotes for string literals in SQL
+  // Search filter - Customer Name and Phone Number
   if (filters.search) {
     sql += " AND (LOWER(customer_name) LIKE LOWER(?) OR REPLACE(phone_number, ' ', '') LIKE ?)";
     const searchTerm = `%${filters.search}%`;
@@ -76,9 +76,6 @@ export function querySales(db, filters) {
   const sortClause = sortMap[filters.sort] || 'date DESC';
   sql += ` ORDER BY ${sortClause}`;
 
-  console.log('SQL before count:', sql);
-  console.log('Params:', params);
-
   // Count total
   const countSql = sql.replace('SELECT *', 'SELECT COUNT(*) as count');
   let total = 0;
@@ -86,16 +83,13 @@ export function querySales(db, filters) {
   try {
     const totalResult = db.prepare(countSql).get(...params);
     total = totalResult ? totalResult.count : 0;
-    console.log('Total results:', total);
   } catch (error) {
     console.error('Count query error:', error.message);
-    console.error('SQL:', countSql);
-    console.error('Params:', params);
     throw error;
   }
 
-  // Pagination
-  const limit = 20;
+  // Pagination - 10 items per page as per requirements
+  const limit = 10;
   const page = filters.page || 1;
   const offset = (page - 1) * limit;
   sql += ' LIMIT ? OFFSET ?';
@@ -110,15 +104,17 @@ export function querySales(db, filters) {
     rows = db.prepare(sql).all(...params);
   } catch (error) {
     console.error('Query error:', error.message);
-    console.error('SQL:', sql);
-    console.error('Params:', params);
     throw error;
   }
 
   const items = rows.map(row => ({
+    transactionId: row.id || '',
     date: row.date || '',
+    customerId: row.customer_id || '',
     customerName: row.customer_name || '',
     phone: row.phone_number || '',
+    gender: row.gender || '',
+    age: row.age || 0,
     region: row.customer_region || '',
     category: row.product_category || '',
     quantity: row.quantity || 0,

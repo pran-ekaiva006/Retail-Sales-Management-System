@@ -10,11 +10,10 @@ export default function Pagination(){
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '20px 0',
-      marginTop: '20px',
-      borderTop: '1px solid rgba(255,255,255,0.1)'
+      padding: '20px 24px',
+      borderTop: '1px solid #f0f0f0'
     }}>
-      <div style={{fontSize: '14px', color: 'rgba(255,255,255,0.5)'}}>
+      <div style={{fontSize: '14px', color: '#757575'}}>
         Page {page} of {totalPages}
       </div>
       <div style={{display: 'flex', gap: '8px'}}>
@@ -22,25 +21,15 @@ export default function Pagination(){
           disabled={page <= 1}
           onClick={() => setParam('page', page - 1)}
           style={{
-            padding: '10px 20px',
-            border: '1px solid rgba(255,255,255,0.1)',
+            padding: '8px 18px',
+            border: '1px solid #e0e0e0',
             borderRadius: '8px',
-            background: page <= 1 ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)',
-            color: page <= 1 ? 'rgba(255,255,255,0.3)' : 'white',
+            background: page <= 1 ? '#fafafa' : '#ffffff',
+            color: page <= 1 ? '#ccc' : '#424242',
             cursor: page <= 1 ? 'not-allowed' : 'pointer',
             fontSize: '14px',
             fontWeight: '500',
             transition: 'all 0.2s'
-          }}
-          onMouseOver={(e) => {
-            if (page > 1) {
-              e.target.style.background = 'rgba(59, 130, 246, 0.2)'
-              e.target.style.borderColor = '#3b82f6'
-            }
-          }}
-          onMouseOut={(e) => {
-            e.target.style.background = page <= 1 ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)'
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
           }}
         >
           ← Previous
@@ -49,25 +38,15 @@ export default function Pagination(){
           disabled={page >= totalPages}
           onClick={() => setParam('page', page + 1)}
           style={{
-            padding: '10px 20px',
-            border: '1px solid rgba(255,255,255,0.1)',
+            padding: '8px 18px',
+            border: '1px solid #e0e0e0',
             borderRadius: '8px',
-            background: page >= totalPages ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)',
-            color: page >= totalPages ? 'rgba(255,255,255,0.3)' : 'white',
+            background: page >= totalPages ? '#fafafa' : '#ffffff',
+            color: page >= totalPages ? '#ccc' : '#424242',
             cursor: page >= totalPages ? 'not-allowed' : 'pointer',
             fontSize: '14px',
             fontWeight: '500',
             transition: 'all 0.2s'
-          }}
-          onMouseOver={(e) => {
-            if (page < totalPages) {
-              e.target.style.background = 'rgba(59, 130, 246, 0.2)'
-              e.target.style.borderColor = '#3b82f6'
-            }
-          }}
-          onMouseOut={(e) => {
-            e.target.style.background = page >= totalPages ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)'
-            e.target.style.borderColor = 'rgba(255,255,255,0.1)'
           }}
         >
           Next →
