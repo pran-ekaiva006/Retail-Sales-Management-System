@@ -2,45 +2,7 @@ import Database from 'better-sqlite3';
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
-import { ensureCSVExists } from './download-csv.js';
 import { DB_PATH, CSV_PATH } from './paths.js';
-
-// Helper to parse CSV line (handles quoted fields)
-function parseCSVLine(line) {
-  const result = [];
-  let current = '';
-  let inQuotes = false;
-  
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-    
-    if (char === '"') {
-      if (inQuotes && line[i + 1] === '"') {
-        current += '"';
-        i++;
-      } else {
-        inQuotes = !inQuotes;
-      }
-    } else if (char === ',' && !inQuotes) {
-      result.push(current.trim());
-      current = '';
-    } else {
-      current += char;
-    }
-  }
-  
-  result.push(current.trim());
-  return result;
-}
-
-// Convert CSV header to valid SQL column name
-function sanitizeColumnName(name) {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, '_')
-    .replace(/[^a-z0-9_]/g, '')
-    .replace(/^(\d)/, '_$1');
-}
 
 export async function initDB() {
   const db = new Database(DB_PATH);
@@ -56,15 +18,20 @@ export async function initDB() {
     return db;
   }
 
-  // Try to download CSV if not exists
-  await ensureCSVExists();
-
+  // IMPORTANT: Only load CSV on first run
+  // After first run, all data is in SQLite database
+  // CSV is not needed anymore
+  
   if (!fs.existsSync(CSV_PATH)) {
-    console.warn(`⚠️  CSV file not found at ${CSV_PATH}`);
-    return db;
+    console.error(`❌ CSV file not found at ${CSV_PATH}`);
+    console.log('💡 Please add your CSV file to backend/src/data/data.csv');
+    console.log('💡 On first run, data will be loaded into SQLite database');
+    console.log('💡 After that, the database file (sales.db) will be used');
+    throw new Error('CSV file required for initial database setup');
   }
 
-  console.log('📂 Loading CSV data into database (streaming)...');
+  console.log('📂 Loading CSV data into database (one-time setup)...');
+  console.log('💡 This happens only once. Future runs will use the database file.');
   
   return new Promise((resolve, reject) => {
     const fileStream = fs.createReadStream(CSV_PATH);
@@ -197,4 +164,41 @@ export async function initDB() {
       reject(err);
     });
   });
+}
+
+// Helper to parse CSV line (handles quoted fields)
+function parseCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  
+  result.push(current.trim());
+  return result;
+}
+
+// Convert CSV header to valid SQL column name
+function sanitizeColumnName(name) {
+  return name
+    .toLowerCase()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-z0-9_]/g, '')
+    .replace(/^(\d)/, '_$1');
 }

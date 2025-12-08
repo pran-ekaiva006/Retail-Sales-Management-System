@@ -123,8 +123,16 @@ const DateRangeFilter = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [startDate, setStartDate] = useState(params.startDate || '')
   const [endDate, setEndDate] = useState(params.endDate || '')
+  const [error, setError] = useState('')
 
   const applyDateRange = () => {
+    // Validate date range
+    if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+      setError('Start date must be before or equal to end date')
+      return
+    }
+    
+    setError('')
     if (startDate) setParam('startDate', startDate)
     if (endDate) setParam('endDate', endDate)
     setIsOpen(false)
@@ -181,6 +189,19 @@ const DateRangeFilter = () => {
             minWidth: '280px',
             zIndex: 1000
           }}>
+            {error && (
+              <div style={{
+                padding: '8px 12px',
+                background: '#fee2e2',
+                color: '#dc2626',
+                borderRadius: '4px',
+                fontSize: '12px',
+                marginBottom: '12px'
+              }}>
+                {error}
+              </div>
+            )}
+            
             <div style={{ marginBottom: '12px' }}>
               <label style={{ 
                 display: 'block', 
@@ -194,7 +215,10 @@ const DateRangeFilter = () => {
               <input
                 type="date"
                 value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+                onChange={(e) => {
+                  setStartDate(e.target.value)
+                  setError('')
+                }}
                 style={{
                   width: '100%',
                   padding: '8px',
@@ -217,7 +241,10 @@ const DateRangeFilter = () => {
               <input
                 type="date"
                 value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
+                onChange={(e) => {
+                  setEndDate(e.target.value)
+                  setError('')
+                }}
                 style={{
                   width: '100%',
                   padding: '8px',
@@ -255,8 +282,29 @@ const AgeRangeFilter = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [ageMin, setAgeMin] = useState(params.ageMin || '')
   const [ageMax, setAgeMax] = useState(params.ageMax || '')
+  const [error, setError] = useState('')
 
   const applyAgeRange = () => {
+    // Validate age range
+    const min = ageMin ? parseInt(ageMin) : null
+    const max = ageMax ? parseInt(ageMax) : null
+    
+    if (min !== null && max !== null && min > max) {
+      setError('Min age must be less than or equal to Max age')
+      return
+    }
+    
+    if (min !== null && (min < 0 || min > 150)) {
+      setError('Age must be between 0 and 150')
+      return
+    }
+    
+    if (max !== null && (max < 0 || max > 150)) {
+      setError('Age must be between 0 and 150')
+      return
+    }
+    
+    setError('')
     if (ageMin) setParam('ageMin', ageMin)
     if (ageMax) setParam('ageMax', ageMax)
     setIsOpen(false)
@@ -313,6 +361,19 @@ const AgeRangeFilter = () => {
             minWidth: '240px',
             zIndex: 1000
           }}>
+            {error && (
+              <div style={{
+                padding: '8px 12px',
+                background: '#fee2e2',
+                color: '#dc2626',
+                borderRadius: '4px',
+                fontSize: '12px',
+                marginBottom: '12px'
+              }}>
+                {error}
+              </div>
+            )}
+            
             <div style={{ marginBottom: '12px' }}>
               <label style={{ 
                 display: 'block', 
@@ -326,10 +387,13 @@ const AgeRangeFilter = () => {
               <input
                 type="number"
                 value={ageMin}
-                onChange={(e) => setAgeMin(e.target.value)}
+                onChange={(e) => {
+                  setAgeMin(e.target.value)
+                  setError('')
+                }}
                 placeholder="18"
                 min="0"
-                max="100"
+                max="150"
                 style={{
                   width: '100%',
                   padding: '8px',
@@ -352,10 +416,13 @@ const AgeRangeFilter = () => {
               <input
                 type="number"
                 value={ageMax}
-                onChange={(e) => setAgeMax(e.target.value)}
+                onChange={(e) => {
+                  setAgeMax(e.target.value)
+                  setError('')
+                }}
                 placeholder="65"
                 min="0"
-                max="100"
+                max="150"
                 style={{
                   width: '100%',
                   padding: '8px',
